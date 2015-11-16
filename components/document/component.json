@@ -1,0 +1,5 @@
+{
+  "name": "document",
+  "logic": "./document.js",
+  "template": "./document.html"
+}
