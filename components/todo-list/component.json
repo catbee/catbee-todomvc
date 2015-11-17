@@ -1,0 +1,5 @@
+{
+  "name": "todo-list",
+  "logic": "./todo-list.js",
+  "template": "./todo-list.html"
+}

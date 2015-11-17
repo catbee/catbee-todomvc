@@ -1,5 +1,6 @@
-var title = require('../actions/title');
+var statements = require('../actions/statements');
 
 exports.route = [
-  title.setTitle
+  statements.setTitle,
+  statements.setHeader
 ];

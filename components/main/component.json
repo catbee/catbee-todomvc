@@ -1,0 +1,5 @@
+{
+  "name": "main",
+  "logic": "./main.js",
+  "template": "./main.html"
+}

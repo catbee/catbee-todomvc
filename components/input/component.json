@@ -1,0 +1,5 @@
+{
+  "name": "input",
+  "logic": "./input.js",
+  "template": "./input.html"
+}

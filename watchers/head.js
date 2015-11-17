@@ -1,3 +1,3 @@
 module.exports = {
-  title: ['title']
+  title: ['statements', 'title']
 };
