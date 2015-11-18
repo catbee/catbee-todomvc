@@ -1,8 +1,7 @@
-class Counter {
-
+class FilterList {
   render () {
     return this.$context.getWatcherData();
   }
 }
 
-module.exports = Counter;
+module.exports = FilterList;
