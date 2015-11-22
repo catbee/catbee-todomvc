@@ -1,5 +1,7 @@
 module.exports = function ({ index }) {
+  index = Number(index);
+
   return {
-    name: ['filters', 'data', index, 'name']
+    name: ['filters', 'list', index, 'name']
   }
 };

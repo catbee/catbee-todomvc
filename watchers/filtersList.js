@@ -1,3 +1,3 @@
 module.exports = {
-  filters: ['filters', 'data']
+  filters: ['filters', 'list']
 };

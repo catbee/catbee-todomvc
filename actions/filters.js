@@ -1,29 +1,15 @@
-var Baobab = require('baobab');
+const FILTERS_LIST = [
+  { name: 'all' },
+  { name: 'active' },
+  { name: 'completed'}
+];
 
 module.exports = {
   setFiltersList (args, state) {
-    state.set(
-      ['filters', 'list'],
-      ['all', 'active', 'completed']
-    );
+    state.set(['filters', 'list'], FILTERS_LIST);
   },
 
-  setActiveFilter ({ index }, state) {
-    state.set(['filters', 'active'], index);
-  },
-
-  setFilters (args, state) {
-    state.set(['filters', 'data'], Baobab.monkey(
-      ['filters', 'list'],
-      ['filters', 'active'],
-      function (list, activeId) {
-        return list.map((name, id) => {
-          return {
-            name, id,
-            isActive: activeId === id
-          };
-        })
-      }
-    ));
+  setActiveFilter ({ index = 0 }, state) {
+    state.set(['filters', 'list', index, 'isActive'], true);
   }
 };

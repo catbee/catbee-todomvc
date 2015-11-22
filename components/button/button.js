@@ -16,7 +16,7 @@ class Button {
           }
 
           this.$context.signal(attributes.signal, {
-            args: attributes.args
+            value: attributes.value
           });
         }
       }

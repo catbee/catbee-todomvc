@@ -8,6 +8,8 @@ var express = require('express');
 var handlebars = require('catberry-handlebars');
 var path = require('path');
 var compression = require('compression');
+var storage = require('./services/storage');
+var helpers = require('./services/helpers');
 
 /**
  * Создание инстанса приложения
@@ -22,6 +24,8 @@ exports.create = function create (config) {
   var staticPath = path.join(__dirname, config.staticPath);
 
   handlebars.register(cat.locator);
+  helpers.register(cat.locator);
+  storage.register(cat.locator);
 
   app.use(compression());
   app.use(cat.getMiddleware());

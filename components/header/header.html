@@ -1,13 +1,15 @@
 <header class="header">
 	<h1>{{header}}</h1>
 
-  <cat-input
-    id="input-new-todo"
-    placeholder="What needs to be done?"
-    mode="new-todo"
-    signal="newTodoInput"
-    path="form.input"
-    watcher="newTodoInput"
-    autofocus="true">
-  </cat-input>
+  <form id="add-new-todo">
+    <cat-input
+      id="input-new-todo"
+      placeholder="What needs to be done?"
+      mode="new-todo"
+      signal="newTodoInput"
+      path="form.input"
+      watcher="newTodoInput"
+      autofocus="true">
+    </cat-input>
+  </form>
 </header>
