@@ -20,3 +20,9 @@ exports.addNewTodo = [
     error: []
   }
 ];
+
+exports.removeTodo = [
+  todo.removeTodo,
+  todo.saveTodoInStorage
+  //todo нужно обновлять данные аттрибутов в оставшихся todo
+];

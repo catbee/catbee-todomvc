@@ -35,6 +35,22 @@ class Storage {
       }, DELAY);
     });
   }
+
+  clearByKey(key, todoId) {
+    return new Promise((resolve) => {
+      if (!global.localStorage) {
+        resolve();
+        return;
+      }
+
+      setTimeout(() => {
+        let updatedStor = JSON.parse(localStorage.getItem(key));
+        updatedStor.splice(todoId,1);
+        localStorage.setItem(key, updatedStor);
+        resolve();
+      }, DELAY);
+    });
+  }
 }
 
 module.exports = {

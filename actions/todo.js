@@ -34,6 +34,10 @@ module.exports = {
     state.push('todos', todo);
   },
 
+  removeTodo ({ id }, state, output) {
+    state.splice('todos', [id-1, 1]);
+  },
+
   saveTodoInStorage (args, state, output, { locator }) {
     var storage = locator.resolve('storage');
     var todos = state.get('todos');
