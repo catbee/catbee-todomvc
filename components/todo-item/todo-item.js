@@ -1,10 +1,6 @@
 class TodoItem {
   render () {
-    return this.$context.getWatcherData()
-      .then(data => {
-        console.log('render data fot todoItem');
-        console.log(data);
-      });
+    return this.$context.getWatcherData();
   }
 
   bind () {
@@ -14,7 +10,10 @@ class TodoItem {
       },
 
       click: {
-        '.destroy': () => this.$context.signal('removeTodo', {id: this.$context.attributes['cat-id']})
+        '.destroy': () => {
+
+          this.$context.signal('removeTodo', {id: this.$context.attributes['cat-id']})
+        }
       }
     }
   }

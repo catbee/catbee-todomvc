@@ -1,6 +1,10 @@
 var Baobab = require('baobab');
-var Uid = require('uid');
 var STORAGE_KEY = 'TODO_LIST';
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 
 module.exports = {
   loadStorageTodos (args, state, output, { locator }) {
@@ -17,7 +21,6 @@ module.exports = {
 
   validateNewTodo (args, state, output) {
     var value = state.get(['form', 'input']);
-    console.log('validate value ', value);
 
     if (!value || value.length < 1) {
       output.error();
@@ -27,15 +30,13 @@ module.exports = {
   },
 
   addNewTodo (args, state, output) {
-    console.log('Unique id: ' + Uid());
     var todo = {
       name: state.get(['form', 'input']),
-      id: state.get(['todos']).length + 1,
-      //id: Uid(),
+      id: getRandomInt(0, 1679615),
       status: 'active'
     };
-
     state.push('todos', todo);
+
   },
 
   removeTodo ({ id }, state, output) {
