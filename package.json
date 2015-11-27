@@ -15,7 +15,8 @@
     "babel-eslint": "^4.0.5",
     "babel-lab": "^1.0.0",
     "eslint": "^1.1.0",
-    "lab": "^7.2.0"
+    "lab": "^7.2.0",
+    "uid": "0.0.2"
   },
   "scripts": {
     "start": "node run.js",

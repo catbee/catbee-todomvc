@@ -1,6 +1,10 @@
 class TodoItem {
   render () {
-    return this.$context.getWatcherData();
+    return this.$context.getWatcherData()
+      .then(data => {
+        console.log('render data fot todoItem');
+        console.log(data);
+      });
   }
 
   bind () {

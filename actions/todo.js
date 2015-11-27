@@ -1,4 +1,5 @@
 var Baobab = require('baobab');
+var Uid = require('uid');
 var STORAGE_KEY = 'TODO_LIST';
 
 module.exports = {
@@ -16,6 +17,7 @@ module.exports = {
 
   validateNewTodo (args, state, output) {
     var value = state.get(['form', 'input']);
+    console.log('validate value ', value);
 
     if (!value || value.length < 1) {
       output.error();
@@ -25,9 +27,11 @@ module.exports = {
   },
 
   addNewTodo (args, state, output) {
+    console.log('Unique id: ' + Uid());
     var todo = {
       name: state.get(['form', 'input']),
       id: state.get(['todos']).length + 1,
+      //id: Uid(),
       status: 'active'
     };
 
@@ -38,7 +42,7 @@ module.exports = {
     state.splice('todos', [id-1, 1]);
   },
 
-  saveTodoInStorage (args, state, output, { locator }) {
+  syncTodoInStorage (args, state, output, { locator }) {
     var storage = locator.resolve('storage');
     var todos = state.get('todos');
 

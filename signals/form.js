@@ -12,7 +12,7 @@ exports.addNewTodo = [
       todo.clearForm,
       todo.setSyncFlag,
       [
-        todo.saveTodoInStorage, {
+        todo.syncTodoInStorage, {
         success: [ todo.removeSyncFlag ]
         }
       ]
@@ -23,6 +23,5 @@ exports.addNewTodo = [
 
 exports.removeTodo = [
   todo.removeTodo,
-  todo.saveTodoInStorage
-  //todo нужно обновлять данные аттрибутов в оставшихся todo
+  todo.syncTodoInStorage
 ];
