@@ -11,7 +11,6 @@ class TodoItem {
 
       click: {
         '.destroy': () => {
-
           this.$context.signal('removeTodo', {id: this.$context.attributes['cat-id']})
         }
       }

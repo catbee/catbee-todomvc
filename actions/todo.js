@@ -1,4 +1,5 @@
 var Baobab = require('baobab');
+var _ = require('lodash');
 var STORAGE_KEY = 'TODO_LIST';
 
 function getRandomInt(min, max) {
@@ -40,7 +41,9 @@ module.exports = {
   },
 
   removeTodo ({ id }, state, output) {
-    state.splice('todos', [id-1, 1]);
+    let todos = state.get(['todos']);
+    let index = _.findIndex(todos, v => v.id == id);
+    state.splice('todos', [index, 1]);
   },
 
   syncTodoInStorage (args, state, output, { locator }) {

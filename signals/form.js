@@ -22,6 +22,7 @@ exports.addNewTodo = [
 ];
 
 exports.removeTodo = [
+
   todo.removeTodo,
   todo.syncTodoInStorage
 ];
