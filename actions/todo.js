@@ -28,7 +28,7 @@ module.exports = {
   addNewTodo (args, state, output) {
     var todo = {
       name: state.get(['form', 'input']),
-      id: Date.now(),
+      id: (+new Date() + Math.floor(Math.random() * 999999)),
       status: 'active'
     };
     state.push('todos', todo);
