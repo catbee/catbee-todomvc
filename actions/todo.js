@@ -84,6 +84,12 @@ module.exports = {
     state.set('editingId', Number(id));
   },
 
+  saveEditingTodo ( args, state) {
+    let todos = state.get(['todos']);
+    let index = _.findIndex(todos, v => v.id == args.id);
+    state.set(['todos', index, 'name' ], args.value );
+  },
+
   clearAllEditingTodos ( args, state) {
     state.set('editingId', '');
   }

@@ -7,3 +7,8 @@ exports.todoItemDoubleClick = [
 exports.todoItemOneClick = [
   todo.clearAllEditingTodos
 ];
+
+exports.todoItemOnEnter = [
+  todo.clearAllEditingTodos,
+  todo.saveEditingTodo
+];

@@ -19,6 +19,15 @@ class TodoItem {
         '.view': () => {
           this.$context.signal('todoItemOneClick');
         }
+      },
+
+      keydown: {
+        '.edit': e => {
+          if (e.keyCode == 13) {
+            let attr = this.$context.attributes;
+            this.$context.signal('todoItemOnEnter', { id: attr['cat-id'], value: e.currentTarget.value });
+          }
+        }
       }
     }
   }
