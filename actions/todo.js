@@ -82,5 +82,9 @@ module.exports = {
 
   setEditingTodo ({ id }, state) {
     state.set('editingId', Number(id));
+  },
+
+  clearAllEditingTodos ( args, state) {
+    state.set('editingId', '');
   }
 };

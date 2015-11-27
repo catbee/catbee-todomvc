@@ -13,6 +13,12 @@ class TodoItem {
         '.destroy': () => {
           this.$context.signal('removeTodo', {id: this.$context.attributes['cat-id']})
         }
+      },
+
+      click: {
+        '.view': () => {
+          this.$context.signal('todoItemOneClick');
+        }
       }
     }
   }
