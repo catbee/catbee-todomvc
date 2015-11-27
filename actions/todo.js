@@ -2,11 +2,6 @@ var Baobab = require('baobab');
 var _ = require('lodash');
 var STORAGE_KEY = 'TODO_LIST';
 
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-
 module.exports = {
   loadStorageTodos (args, state, output, { locator }) {
     var storage = locator.resolve('storage');
@@ -33,7 +28,7 @@ module.exports = {
   addNewTodo (args, state, output) {
     var todo = {
       name: state.get(['form', 'input']),
-      id: getRandomInt(0, 1679615),
+      id: Date.now(),
       status: 'active'
     };
     state.push('todos', todo);
