@@ -85,6 +85,9 @@ module.exports = {
 
   setEditingTodo ({ id }, state) {
     state.set('editingId', Number(id));
+    let todos = state.get(['todos']);
+    let index = _.findIndex(todos, v => v.id == id);
+    state.set(['todos', index, 'editing'], true);
   },
 
   saveEditingTodo ( args, state) {
@@ -94,6 +97,8 @@ module.exports = {
   },
 
   clearAllEditingTodos ( args, state) {
+    let todos = state.get(['todos']);
+    todos.map( (v, index) => state.set(['todos', index, 'editing'], false));
     state.set('editingId', '');
   },
 
@@ -103,7 +108,6 @@ module.exports = {
     let status = state.get(['todos', index, 'status']);
     status = status == COMPLETED_TODO ? ACTIVE_TODO : COMPLETED_TODO;
     state.set(['todos', index, 'status'], status);
-    console.log(state.get('todos'));
   }
 
 };

@@ -1,4 +1,5 @@
-var todoAction = require('../actions/todoAction');
+var todoAction = require('../actions/todoAction'),
+    counterAction = require('../actions/counterAction');
 
 exports.todoItemDoubleClick = [
   todoAction.setEditingTodo
@@ -25,5 +26,6 @@ exports.todoItemOnEnter = [
 ];
 
 exports.todoItemOnToggleCompleted = [
-    todoAction.toggleCompletedTodo
+    todoAction.toggleCompletedTodo,
+    counterAction.updateCounter
 ];
