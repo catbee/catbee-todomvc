@@ -1,12 +1,12 @@
 {{#if isTodosNotEmpty}}
   <section class="main">
     <input class="toggle-all" type="checkbox">
-    <cat-todo-list id="todo-list" watcher="todoList"></cat-todo-list>
+    <cat-todo-list id="todo-list" watcher="todoListWatcher"></cat-todo-list>
   </section>
 
   <footer class="footer">
-    <cat-counter id="counter" watcher="counter"></cat-counter>
-    <cat-filter-list id="filter-list" watcher="filtersList"></cat-filter-list>
+    <cat-counter id="counter" watcher="counterWatcher"></cat-counter>
+    <cat-filter-list id="filter-list" watcher="filtersListWatcher"></cat-filter-list>
     <cat-button mode="clear-completed" caption="Clear completed" id="clear-completed"></cat-button>
   </footer>
 {{/if}}

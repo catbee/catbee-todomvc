@@ -1,7 +1,7 @@
 <ul class="todo-list">
   {{#each todos}}
   <li {{#eq ../editingId this}}class="editing"{{/eq}}>
-    <cat-todo-item id="todo-item-{{this}}" cat-id="{{this}}" watcher="todoItem"></cat-todo-item>
+    <cat-todo-item id="todo-item-{{this}}" cat-id="{{this}}" watcher="todoItemWatcher"></cat-todo-item>
   </li>
   {{/each}}
 </ul>
