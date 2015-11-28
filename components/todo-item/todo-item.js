@@ -21,6 +21,11 @@ class TodoItem {
         '.view': () => {
           console.log('view');
           this.$context.signal('todoItemOneClick');
+        },
+
+        '.toggle': () => {
+          console.log('toggle');
+          this.$context.signal('todoItemOnToggleCompleted', { id: this.$context.attributes['cat-id'] });
         }
 
       },

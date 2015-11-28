@@ -2,6 +2,9 @@ var Baobab = require('baobab');
 var _ = require('lodash');
 var STORAGE_KEY = 'TODO_LIST';
 
+const COMPLETED_TODO = 'completed',
+      ACTIVE_TODO = 'active';
+
 module.exports = {
   loadStorageTodos (args, state, output, { locator }) {
     var storage = locator.resolve('storage');
@@ -92,5 +95,15 @@ module.exports = {
 
   clearAllEditingTodos ( args, state) {
     state.set('editingId', '');
+  },
+
+  toggleCompletedTodo ( { id }, state) {
+    let todos = state.get(['todos']);
+    let index = _.findIndex(todos, v => v.id == id);
+    let status = state.get(['todos', index, 'status']);
+    status = status == COMPLETED_TODO ? ACTIVE_TODO : COMPLETED_TODO;
+    state.set(['todos', index, 'status'], status);
+    console.log(state.get('todos'));
   }
+
 };

@@ -23,3 +23,7 @@ exports.todoItemOnEnter = [
     error: []
   }
 ];
+
+exports.todoItemOnToggleCompleted = [
+    todoAction.toggleCompletedTodo
+];
