@@ -14,17 +14,14 @@ class TodoItem {
       click: {
 
         '.destroy': () => {
-          console.log('destroy');
           this.$context.signal('removeTodo', {id: this.$context.attributes['cat-id']})
         },
 
         '.view': () => {
-          console.log('view');
           this.$context.signal('todoItemOneClick');
         },
 
         '.toggle': () => {
-          console.log('toggle');
           this.$context.signal('todoItemOnToggleCompleted', { id: this.$context.attributes['cat-id'] });
         }
 
