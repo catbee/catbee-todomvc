@@ -9,6 +9,17 @@ exports.todoItemOneClick = [
 ];
 
 exports.todoItemOnEnter = [
-  todoAction.clearAllEditingTodos,
-  todoAction.saveEditingTodo
+  todoAction.validateNewTodo, {
+    success: [
+      todoAction.clearAllEditingTodos,
+      todoAction.saveEditingTodo,
+      todoAction.setSyncFlag,
+      [
+        todoAction.syncTodoInStorage, {
+        success: [ todoAction.removeSyncFlag ]
+      }
+      ]
+    ],
+    error: []
+  }
 ];

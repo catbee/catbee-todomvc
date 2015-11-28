@@ -15,8 +15,8 @@ module.exports = {
     state.set('todos', todos ? todos : []);
   },
 
-  validateNewTodo (args, state, output) {
-    var value = state.get(['form', 'input']);
+  validateNewTodo ( { value }, state, output) {
+    //var value = state.get(['form', 'input']);
 
     if (!value || value.length < 1) {
       output.error();
