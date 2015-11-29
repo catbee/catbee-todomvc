@@ -5,14 +5,10 @@ exports.todoItemDoubleClick = [
   todoAction.setEditingTodo
 ];
 
-exports.todoItemOneClick = [
-  todoAction.clearAllEditingTodos
-];
-
 exports.todoItemOnEnter = [
   todoAction.validateNewTodo, {
     success: [
-      todoAction.clearAllEditingTodos,
+      todoAction.cancelEditingTodo,
       todoAction.saveEditingTodo,
       todoAction.setSyncFlag,
       [

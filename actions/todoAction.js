@@ -96,7 +96,7 @@ module.exports = {
     state.set(['todos', index, 'name' ], args.value );
   },
 
-  clearAllEditingTodos ( args, state) {
+  cancelEditingTodo ( args, state) {
     let todos = state.get(['todos']);
     todos.map( (v, index) => state.set(['todos', index, 'editing'], false));
     state.set('editingId', '');

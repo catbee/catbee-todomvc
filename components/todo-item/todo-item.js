@@ -17,10 +17,6 @@ class TodoItem {
           this.$context.signal('removeTodo', {id: this.$context.attributes['cat-id']})
         },
 
-        '.view': () => {
-          this.$context.signal('todoItemOneClick');
-        },
-
         '.toggle': () => {
           this.$context.signal('todoItemOnToggleCompleted', { id: this.$context.attributes['cat-id'] });
         }

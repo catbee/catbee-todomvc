@@ -22,3 +22,7 @@ exports.appReady = [
     }
   ]
 ];
+
+exports.clickOnPage = [
+  todoAction.cancelEditingTodo
+];
