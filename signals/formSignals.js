@@ -22,7 +22,10 @@ exports.addNewTodo = [
 ];
 
 exports.removeTodo = [
-
   todoAction.removeTodo,
   todoAction.syncTodoInStorage
+];
+
+exports.toggleAllChecked = [
+    todoAction.toggleAllCompletedTodo
 ];

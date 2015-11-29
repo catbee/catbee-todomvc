@@ -99,7 +99,6 @@ module.exports = {
   cancelEditingTodo ( args, state) {
     let todos = state.get(['todos']);
     todos.map( (v, index) => state.set(['todos', index, 'editing'], false));
-    state.set('editingId', '');
   },
 
   toggleCompletedTodo ( { id }, state) {
@@ -108,6 +107,11 @@ module.exports = {
     let status = state.get(['todos', index, 'status']);
     status = status == COMPLETED_TODO ? ACTIVE_TODO : COMPLETED_TODO;
     state.set(['todos', index, 'status'], status);
-  }
+  },
 
+  toggleAllCompletedTodo ( { isCompleted }, state ) {
+    let todos = state.get(['todos']),
+        status = isCompleted ? COMPLETED_TODO : ACTIVE_TODO;
+    todos.map( (v, index) => state.set(['todos', index, 'status'], status));
+  }
 };
