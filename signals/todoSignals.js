@@ -26,6 +26,5 @@ exports.todoItemOnEnter = [
 ];
 
 exports.todoItemOnToggleCompleted = [
-    todoAction.toggleCompletedTodo,
-    counterAction.updateCounter
+    todoAction.toggleCompletedTodo
 ];
