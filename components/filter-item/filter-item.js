@@ -1,18 +1,12 @@
 class FilterItem {
   render () {
-    return this.$context.getWatcherData().then( d => {
-      //console.log(d);
-      return d;
-    });
+    return this.$context.getWatcherData();
   }
 
   bind () {
     return {
       click: {
-        '.filter-item': (e) => {
-          e.preventDefault();
-          //console.log('filters')
-        }
+        '.filter-item': (e) => e.preventDefault()
       }
     };
   }

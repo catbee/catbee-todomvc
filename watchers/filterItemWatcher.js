@@ -2,6 +2,6 @@ module.exports = function ({ index }) {
   index = Number(index);
 
   return {
-    name: ['filters', 'list', index, 'name']
+    item: ['filters', 'list', index]
   }
 };
