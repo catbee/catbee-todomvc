@@ -7,8 +7,8 @@ exports.route = [
   statementsAction.setTitle,
   statementsAction.setHeader,
   counterAction.setBaseCount,
-  filtersAction.setActiveFilter,
   filtersAction.setFiltersList,
+  filtersAction.setActiveFilter,
   todoAction.setTodosStateFlag
 ];
 
