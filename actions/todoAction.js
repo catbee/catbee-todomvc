@@ -113,5 +113,10 @@ module.exports = {
     let todos = state.get(['todos']),
         status = isCompleted ? COMPLETED_TODO : ACTIVE_TODO;
     todos.map( (v, index) => state.set(['todos', index, 'status'], status));
+  },
+
+  removeCompletedTodo (args, state) {
+    let todos = state.get(['todos']).filter( (v = []) => v.status == ACTIVE_TODO);
+    state.set(['todos'], todos);
   }
 };

@@ -5,15 +5,20 @@ class Main {
   }
 
   bind () {
+    let attributes = this.$context.attributes;
     return {
-      'click': {
+      click: {
         '.toggle-all': (e) => {
-          this.$context.signal('toggleAllChecked', { isCompleted: e.target.checked });
+          if (!attributes.signal) {
+            return;
+          }
+          this.$context.signal(attributes.signal, { isCompleted: e.target.checked });
         }
       }
     };
   }
 
 }
+
 
 module.exports = Main;

@@ -23,9 +23,24 @@ exports.addNewTodo = [
 
 exports.removeTodo = [
   todoAction.removeTodo,
-  todoAction.syncTodoInStorage
+  todoAction.setSyncFlag,
+  [
+    todoAction.syncTodoInStorage, {
+    success: [ todoAction.removeSyncFlag ]
+    }
+  ]
 ];
 
 exports.toggleAllChecked = [
-    todoAction.toggleAllCompletedTodo
+  todoAction.toggleAllCompletedTodo
+];
+
+exports.removeCompleted = [
+  todoAction.removeCompletedTodo,
+  todoAction.setSyncFlag,
+  [
+    todoAction.syncTodoInStorage, {
+    success: [ todoAction.removeSyncFlag ]
+  }
+  ]
 ];
