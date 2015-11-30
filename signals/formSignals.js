@@ -1,5 +1,6 @@
 var utilsAction = require('../actions/utilsAction');
 var todoAction = require('../actions/todoAction');
+var filtersAction = require('../actions/filtersAction');
 
 exports.newTodoInput = [
   utilsAction.setInputValue
@@ -43,4 +44,8 @@ exports.removeCompleted = [
     success: [ todoAction.removeSyncFlag ]
   }
   ]
+];
+
+exports.setAcFilter = [
+  filtersAction.setActiveFilter
 ];

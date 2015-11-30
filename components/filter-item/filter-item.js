@@ -6,7 +6,11 @@ class FilterItem {
   bind () {
     return {
       click: {
-        '.filter-item': (e) => e.preventDefault()
+        '.filter-item': (e) => {
+          e.preventDefault();
+          let attributes = this.$context.attributes;
+          this.$context.signal('setAcFilter', { index: attributes.index });
+        }
       }
     };
   }
