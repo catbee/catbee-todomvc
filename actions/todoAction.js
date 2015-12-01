@@ -36,7 +36,8 @@ module.exports = {
       status: 'active',
       shown: true
     };
-    state.push('todos', todo);
+
+    state.push(['todos'], todo);
   },
 
   removeTodo ({ id }, state) {
@@ -120,17 +121,17 @@ module.exports = {
     state.set(['todos'], todos);
   },
 
-  applyFilter ( args, state ) {
-    let filterName = state.get(['filters', 'isActive']);
-    let todos = state.get(['todos']) || [];
-    let isShown;
-    todos.map( (v, index) => {
-      if (!filterName) {
-        isShown = true;
-      } else {
-        isShown = filterName == v.status;
+  setComputedTodos (args, state) {
+    state.set(['todosComputed'], Baobab.monkey([
+      ['filters', 'isActive'],
+      ['todos'],
+      ( activeFilter, todos ) => {
+        let cloneTodo = _.clone(todos,true);
+        return cloneTodo.map( todo => {
+          todo.shown = (!activeFilter || todo.status == activeFilter);
+          return todo;
+        })
       }
-      state.set(['todos', index, 'shown'], isShown);
-    });
+    ]));
   }
 };

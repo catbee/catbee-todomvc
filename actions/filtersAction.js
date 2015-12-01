@@ -9,7 +9,8 @@ module.exports = {
     state.set(['filters', 'list'], FILTERS_LIST);
   },
 
-  setActiveFilter ( { index = 0 }, state ) {
+  setActiveFilter ( { index  }, state = {} ) {
+    index = index || 0;
     let filters = state.get(['filters', 'list']);
 
     filters.map( (filter, arrIndex ) => {

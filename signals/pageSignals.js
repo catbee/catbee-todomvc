@@ -18,7 +18,7 @@ exports.appReady = [
       success: [
         todoAction.setTodos,
         todoAction.setTodosIdsMap,
-        todoAction.applyFilter
+        todoAction.setComputedTodos
       ]
     }
   ]

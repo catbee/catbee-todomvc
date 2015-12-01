@@ -47,6 +47,5 @@ exports.removeCompleted = [
 ];
 
 exports.setActiveFilter = [
-  filtersAction.setActiveFilter,
-  todoAction.applyFilter
+  filtersAction.setActiveFilter
 ];
