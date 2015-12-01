@@ -17,7 +17,8 @@ exports.appReady = [
     todoAction.loadStorageTodos, {
       success: [
         todoAction.setTodos,
-        todoAction.setTodosIdsMap
+        todoAction.setTodosIdsMap,
+        todoAction.applyFilter
       ]
     }
   ]

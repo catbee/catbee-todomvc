@@ -118,5 +118,19 @@ module.exports = {
   removeCompletedTodo (args, state) {
     let todos = state.get(['todos']).filter( (v = []) => v.status == ACTIVE_TODO);
     state.set(['todos'], todos);
+  },
+
+  applyFilter ( args , state ) {
+    let filterName = state.get(['filters', 'isActive']);
+    let todos = state.get(['todos']) || [];
+    todos.map( (v, index) => {
+      if (filterName == 'all') state.set(['todos', index, 'shown'], true);
+      else {
+        let isShown = filterName == v.status;
+        state.set(['todos', index, 'shown'], isShown);
+      }
+    });
+    console.log('Apply filter');
+    console.log(state.get(['todos']));
   }
 };
