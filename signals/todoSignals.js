@@ -21,5 +21,11 @@ exports.todoItemOnEnter = [
 ];
 
 exports.todoItemOnToggleCompleted = [
-  todoAction.toggleCompletedTodo
+  todoAction.toggleCompletedTodo,
+  todoAction.setSyncFlag,
+  [
+    todoAction.syncTodoInStorage, {
+    success: [ todoAction.removeSyncFlag ]
+  }
+  ]
 ];
