@@ -126,11 +126,11 @@ module.exports = {
       ['filters', 'isActive'],
       ['todos'],
       ( activeFilter, todos ) => {
-        let cloneTodo = _.clone(todos,true);
+        let cloneTodo = _.clone(todos, true);
         return cloneTodo.map( todo => {
           todo.shown = (!activeFilter || todo.status == activeFilter);
           return todo;
-        })
+        });
       }
     ]));
   }

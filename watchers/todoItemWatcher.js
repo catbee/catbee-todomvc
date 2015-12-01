@@ -4,5 +4,5 @@ module.exports = function (attributes) {
 
   return {
     name: ['todos', { id }, 'name']
-  }
+  };
 };

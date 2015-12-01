@@ -3,5 +3,5 @@ module.exports = function ({ index }) {
 
   return {
     item: ['filters', 'list', index]
-  }
+  };
 };
