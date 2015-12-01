@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "node run.js",
-    "lint": "node ./node_modules/.bin/eslint ./signals",
+    "lint": "node ./node_modules/.bin/eslint ./signals ./watchers ./components ./actions",
     "test": "node ./node_modules/.bin/lab -T node_modules/babel-lab test/suites/*.js"
   },
   "author": "k.kaysarov <defcuts@mail.ru>",
