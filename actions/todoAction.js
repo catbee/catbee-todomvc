@@ -32,7 +32,8 @@ module.exports = {
     var todo = {
       name: state.get(['form', 'input']),
       id: (+new Date() + Math.floor(Math.random() * 999999)),
-      status: 'active'
+      status: 'active',
+      shown: true
     };
     state.push('todos', todo);
 
@@ -130,7 +131,5 @@ module.exports = {
         state.set(['todos', index, 'shown'], isShown);
       }
     });
-    console.log('Apply filter');
-    console.log(state.get(['todos']));
   }
 };
