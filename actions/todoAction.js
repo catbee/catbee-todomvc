@@ -19,8 +19,6 @@ module.exports = {
   },
 
   validateNewTodo ( { value }, state, output) {
-    //var value = state.get(['form', 'input']);
-
     if (!value || value.length < 1) {
       output.error();
     } else {
@@ -29,9 +27,12 @@ module.exports = {
   },
 
   addNewTodo (args, state, output) {
+    let name = state.get(['form', 'input']),
+        id = (+new Date() + Math.floor(Math.random() * 999999));
+
     var todo = {
-      name: state.get(['form', 'input']),
-      id: (+new Date() + Math.floor(Math.random() * 999999)),
+      name: name,
+      id: id,
       status: 'active',
       shown: true
     };
@@ -41,7 +42,7 @@ module.exports = {
 
   removeTodo ({ id }, state, output) {
     let todos = state.get(['todos']);
-    let index = _.findIndex(todos, v => v.id == id);
+    let index = _.findIndex(todos, todo => todo.id == id);
     state.splice('todos', [index, 1]);
   },
 
@@ -80,7 +81,7 @@ module.exports = {
     }
 
     state.set('isTodosNotEmpty', Baobab.monkey([
-     ['todos'], (todos) => todos && todos.length > 0
+     ['todos'], (todos) => !_.isEmpty(todos)
     ]));
   },
 

@@ -4,7 +4,7 @@ module.exports = {
 
   setBaseCount (args, state) {
     state.set(['counter'], Baobab.monkey(
-            ['todos'], (todos = []) => todos.filter( v => v.status == 'active').length)
+        ['todos'], (todos = []) => todos.filter( todo => todo.status == 'active').length)
     );
   }
 

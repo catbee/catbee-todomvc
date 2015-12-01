@@ -8,8 +8,8 @@ class FilterItem {
       click: {
         '.filter-item': (e) => {
           e.preventDefault();
-          let attributes = this.$context.attributes;
-          this.$context.signal('setAcFilter', { index: attributes.index });
+          let { index } = this.$context.attributes;
+          this.$context.signal('setActiveFilter', { index });
         }
       }
     };

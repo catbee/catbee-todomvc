@@ -14,7 +14,7 @@ class Header {
   addNewTodo (e) {
     e.preventDefault();
       let value = e.currentTarget.elements[0].value;
-      this.$context.signal('addNewTodo', { value: value });
+      this.$context.signal('addNewTodo', { value });
   }
 }
 

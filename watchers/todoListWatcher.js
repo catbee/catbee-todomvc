@@ -1,6 +1,3 @@
-module.exports = function(attributes) {
-
-  return {
-    todos: ['todos']
-  }
+module.exports = {
+  todos: ['todos']
 };

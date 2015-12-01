@@ -5,14 +5,13 @@ class Main {
   }
 
   bind () {
-    let attributes = this.$context.attributes;
     return {
       click: {
         '.toggle-all': (e) => {
           if (!attributes.signal) {
             return;
           }
-          this.$context.signal(attributes.signal, { isCompleted: e.target.checked });
+          this.$context.signal('toggleAllChecked', { isCompleted: e.target.checked });
         }
       }
     };
