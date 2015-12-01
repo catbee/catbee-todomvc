@@ -17,6 +17,7 @@ module.exports = {
       else state.set(['filters', 'list', arrIndex, 'isActive'], false);
     });
 
-    state.set(['filters', 'isActive'], FILTERS_LIST[index].name);
+    let activeFilter = (index == 0) ? false : FILTERS_LIST[index].name;
+    state.set(['filters', 'isActive'], activeFilter);
   }
 };
