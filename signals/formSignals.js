@@ -14,7 +14,7 @@ exports.addNewTodo = [
       todoAction.setSyncFlag,
       [
         todoAction.syncTodoInStorage, {
-        success: [ todoAction.removeSyncFlag ]
+          success: [ todoAction.removeSyncFlag ]
         }
       ]
     ],
@@ -27,7 +27,7 @@ exports.removeTodo = [
   todoAction.setSyncFlag,
   [
     todoAction.syncTodoInStorage, {
-    success: [ todoAction.removeSyncFlag ]
+      success: [ todoAction.removeSyncFlag ]
     }
   ]
 ];
@@ -41,8 +41,8 @@ exports.removeCompleted = [
   todoAction.setSyncFlag,
   [
     todoAction.syncTodoInStorage, {
-    success: [ todoAction.removeSyncFlag ]
-  }
+      success: [ todoAction.removeSyncFlag ]
+    }
   ]
 ];
 

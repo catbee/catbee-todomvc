@@ -3,12 +3,14 @@ class Document {
     this.$context.signal('appReady');
 
     return {
-      'click': {
-        'body': (e) => {
-          if (e.target.className != 'edit') this.$context.signal('clickOnPage');
+      click: {
+        body: (e) => {
+          if (e.target.className != 'edit') {
+            this.$context.signal('clickOnPage');
+          }
         }
       }
-    }
+    };
   }
 }
 

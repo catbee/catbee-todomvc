@@ -1,5 +1,4 @@
-var todoAction = require('../actions/todoAction'),
-    counterAction = require('../actions/counterAction');
+var todoAction = require('../actions/todoAction');
 
 exports.todoItemDoubleClick = [
   todoAction.setEditingTodo
@@ -13,8 +12,8 @@ exports.todoItemOnEnter = [
       todoAction.setSyncFlag,
       [
         todoAction.syncTodoInStorage, {
-        success: [ todoAction.removeSyncFlag ]
-      }
+          success: [ todoAction.removeSyncFlag ]
+        }
       ]
     ],
     error: []
@@ -22,5 +21,5 @@ exports.todoItemOnEnter = [
 ];
 
 exports.todoItemOnToggleCompleted = [
-    todoAction.toggleCompletedTodo
+  todoAction.toggleCompletedTodo
 ];

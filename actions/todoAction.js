@@ -2,8 +2,8 @@ var Baobab = require('baobab');
 var _ = require('lodash');
 var STORAGE_KEY = 'TODO_LIST';
 
-const COMPLETED_TODO = 'completed',
-      ACTIVE_TODO = 'active';
+const COMPLETED_TODO = 'completed';
+const ACTIVE_TODO = 'active';
 
 module.exports = {
   loadStorageTodos (args, state, output, { locator }) {
@@ -26,9 +26,9 @@ module.exports = {
     }
   },
 
-  addNewTodo (args, state, output) {
-    let name = state.get(['form', 'input']),
-        id = (+new Date() + Math.floor(Math.random() * 999999));
+  addNewTodo (args, state) {
+    let name = state.get(['form', 'input']);
+    let id = (+new Date() + Math.floor(Math.random() * 999999));
 
     var todo = {
       name: name,
@@ -37,10 +37,9 @@ module.exports = {
       shown: true
     };
     state.push('todos', todo);
-
   },
 
-  removeTodo ({ id }, state, output) {
+  removeTodo ({ id }, state) {
     let todos = state.get(['todos']);
     let index = _.findIndex(todos, todo => todo.id == id);
     state.splice('todos', [index, 1]);
@@ -76,7 +75,7 @@ module.exports = {
   setTodosStateFlag (args, state) {
     var isMonkeySet = state.get('isTodosNotEmpty');
 
-    if (isMonkeySet){
+    if (isMonkeySet) {
       return;
     }
 
@@ -89,7 +88,6 @@ module.exports = {
     let todos = state.get(['todos']);
     let index = _.findIndex(todos, v => v.id == id);
     state.set(['todos', index, 'editing'], true);
-
   },
 
   saveEditingTodo ( args, state) {
@@ -112,8 +110,8 @@ module.exports = {
   },
 
   toggleAllCompletedTodo ( { isCompleted }, state ) {
-    let todos = state.get(['todos']),
-        status = isCompleted ? COMPLETED_TODO : ACTIVE_TODO;
+    let todos = state.get(['todos']);
+    let status = isCompleted ? COMPLETED_TODO : ACTIVE_TODO;
     todos.map( (v, index) => state.set(['todos', index, 'status'], status));
   },
 
@@ -122,19 +120,17 @@ module.exports = {
     state.set(['todos'], todos);
   },
 
-  applyFilter ( args , state ) {
+  applyFilter ( args, state ) {
     let filterName = state.get(['filters', 'isActive']);
     let todos = state.get(['todos']) || [];
     let isShown;
     todos.map( (v, index) => {
-
-      if (!filterName) isShown = true;
-      else isShown = filterName == v.status;
-
+      if (!filterName) {
+        isShown = true;
+      } else {
+        isShown = filterName == v.status;
+      }
       state.set(['todos', index, 'shown'], isShown);
-
-      console.log(state.get(['filters']));
-
     });
   }
 };

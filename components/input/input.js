@@ -17,7 +17,7 @@ class Input {
           this.$context.signal(signalName, { path, value });
         }
       }
-    }
+    };
   }
 }
 

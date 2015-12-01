@@ -12,9 +12,12 @@ module.exports = {
   setActiveFilter ( { index = 0 }, state ) {
     let filters = state.get(['filters', 'list']);
 
-    filters.map( (v, arrIndex ) => {
-      if (arrIndex == index) state.set(['filters', 'list', arrIndex, 'isActive'], true);
-      else state.set(['filters', 'list', arrIndex, 'isActive'], false);
+    filters.map( (filter, arrIndex ) => {
+      if (arrIndex == index) {
+        state.set(['filters', 'list', arrIndex, 'isActive'], true);
+      } else {
+        state.set(['filters', 'list', arrIndex, 'isActive'], false);
+      }
     });
 
     let activeFilter = (index == 0) ? false : FILTERS_LIST[index].name;

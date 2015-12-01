@@ -8,9 +8,6 @@ class Main {
     return {
       click: {
         '.toggle-all': (e) => {
-          if (!attributes.signal) {
-            return;
-          }
           this.$context.signal('toggleAllChecked', { isCompleted: e.target.checked });
         }
       }
