@@ -122,15 +122,18 @@ module.exports = {
   },
 
   applyFilter ( args , state ) {
-    const FILTER_ALL = 'all';
     let filterName = state.get(['filters', 'isActive']);
     let todos = state.get(['todos']) || [];
+    let isShown;
     todos.map( (v, index) => {
-      if (filterName == FILTER_ALL) state.set(['todos', index, 'shown'], true);
-      else {
-        let isShown = filterName == v.status;
-        state.set(['todos', index, 'shown'], isShown);
-      }
+
+      if (!filterName) isShown = true;
+      else isShown = filterName == v.status;
+
+      state.set(['todos', index, 'shown'], isShown);
+
+      console.log(state.get(['filters']));
+
     });
   }
 };
