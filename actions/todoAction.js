@@ -85,6 +85,25 @@ module.exports = {
     ]));
   },
 
+  setCompletedAllStateFlag (args, state) {
+    var isMonkeySet = state.get('AllCompleted');
+
+    if (isMonkeySet) {
+      return;
+    }
+    state.set(['AllCompleted'], Baobab.monkey([
+      ['todos'], (todos = []) => {
+        let result = true;
+        todos.map( (todo = []) => {
+          if (todo.status != COMPLETED_TODO) {
+            result = false;
+          }
+        });
+        return result;
+      }
+    ]));
+  },
+
   setEditingTodo ({ id }, state) {
     let todos = state.get(['todos']);
     let index = _.findIndex(todos, v => v.id == id);
@@ -113,9 +132,16 @@ module.exports = {
   },
 
   toggleAllCompletedTodo ( { isCompleted }, state ) {
-    let todos = state.get(['todos']);
+    let todos = _.clone(state.get(['todos']), true);
     let status = isCompleted ? COMPLETED_TODO : ACTIVE_TODO;
-    todos.map( (v, index) => state.set(['todos', index, 'status'], status));
+
+    todos = todos.map(todo => {
+      todo.status = status;
+      todo.checked = isCompleted;
+      return todo;
+    });
+
+    state.set(['todos'], todos);
   },
 
   removeCompletedTodo (args, state) {

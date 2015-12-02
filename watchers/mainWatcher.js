@@ -1,3 +1,4 @@
 module.exports = {
-  isTodosNotEmpty: ['isTodosNotEmpty']
+  isTodosNotEmpty: ['isTodosNotEmpty'],
+  checked: ['AllCompleted']
 };

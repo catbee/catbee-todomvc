@@ -9,7 +9,8 @@ exports.route = [
   counterAction.setBaseCount,
   filtersAction.setFiltersList,
   filtersAction.setActiveFilter,
-  todoAction.setTodosStateFlag
+  todoAction.setTodosStateFlag,
+  todoAction.setCompletedAllStateFlag
 ];
 
 exports.appReady = [

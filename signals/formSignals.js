@@ -32,7 +32,7 @@ exports.removeTodo = [
   ]
 ];
 
-exports.toggleAllChecked = [
+exports.toggleAllCompleted = [
   todoAction.toggleAllCompletedTodo,
   todoAction.setSyncFlag,
   [
