@@ -17,7 +17,5 @@ module.exports = {
  */
 function eq (a, b) {
   var next =  arguments[arguments.length-1];
-  console.log('helper');
-  console.dir(next);
   return (a === b) ? next.fn(this) : next.inverse(this);
 }
