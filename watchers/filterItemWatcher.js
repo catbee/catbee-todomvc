@@ -2,6 +2,7 @@ module.exports = function filterItemWatcher ( { index }) {
   let filterIndex = Number(index);
 
   return {
-    item: ['filters', 'list', filterIndex]
+    item: ['filters', 'list', filterIndex],
+    activeFilter: ['filters', 'isActive']
   };
 };

@@ -156,7 +156,7 @@ module.exports = {
       ( activeFilter, todos ) => {
         let cloneTodo = _.clone(todos, true);
         return cloneTodo.map( todo => {
-          todo.shown = (!activeFilter || todo.status == activeFilter);
+          todo.shown = (activeFilter == 'all' || todo.status == activeFilter);
           return todo;
         });
       }
