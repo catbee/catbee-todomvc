@@ -33,7 +33,13 @@ exports.removeTodo = [
 ];
 
 exports.toggleAllChecked = [
-  todoAction.toggleAllCompletedTodo
+  todoAction.toggleAllCompletedTodo,
+  todoAction.setSyncFlag,
+  [
+    todoAction.syncTodoInStorage, {
+      success: [ todoAction.removeSyncFlag ]
+    }
+  ]
 ];
 
 exports.removeCompleted = [
