@@ -25,7 +25,7 @@ exports.todoItemOnToggleCompleted = [
   todoAction.setSyncFlag,
   [
     todoAction.syncTodoInStorage, {
-    success: [ todoAction.removeSyncFlag ]
-  }
+      success: [ todoAction.removeSyncFlag ]
+    }
   ]
 ];
