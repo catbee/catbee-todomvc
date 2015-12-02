@@ -1,7 +1,7 @@
-module.exports = function ({ index }) {
-  index = Number(index);
+module.exports = function filterItemWatcher ( { index }) {
+  let filterIndex = Number(index);
 
   return {
-    item: ['filters', 'list', index]
+    item: ['filters', 'list', filterIndex]
   };
 };

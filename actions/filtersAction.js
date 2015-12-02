@@ -10,18 +10,18 @@ module.exports = {
   },
 
   setActiveFilter ( { index }, state = {} ) {
-    index = index || 0;
+    let filterIndex = index || 0;
     let filters = state.get(['filters', 'list']);
 
     filters.map( (filter, arrIndex ) => {
-      if (arrIndex == index) {
+      if (arrIndex == filterIndex) {
         state.set(['filters', 'list', arrIndex, 'isActive'], true);
       } else {
         state.set(['filters', 'list', arrIndex, 'isActive'], false);
       }
     });
 
-    let activeFilter = (index == 0) ? false : FILTERS_LIST[index].name;
+    let activeFilter = (filterIndex == 0) ? false : FILTERS_LIST[filterIndex].name;
     state.set(['filters', 'isActive'], activeFilter);
   }
 };

@@ -1,4 +1,4 @@
-module.exports = function (attributes) {
+module.exports = function todoItemWatcher (attributes) {
   var id = attributes['cat-id'];
   id = Number(id);
 
