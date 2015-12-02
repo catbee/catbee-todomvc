@@ -3,6 +3,7 @@ module.exports = function (attributes) {
   id = Number(id);
 
   return {
-    name: ['todos', { id }, 'name']
+    name: ['todos', { id }, 'name'],
+    checked: ['todos', { id }, 'checked']
   };
 };

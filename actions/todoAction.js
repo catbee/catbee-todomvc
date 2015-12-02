@@ -104,10 +104,12 @@ module.exports = {
 
   toggleCompletedTodo ( { id }, state) {
     let todos = state.get(['todos']);
-    let index = _.findIndex(todos, v => v.id == id);
-    let status = state.get(['todos', index, 'status']);
-    status = status == COMPLETED_TODO ? ACTIVE_TODO : COMPLETED_TODO;
-    state.set(['todos', index, 'status'], status);
+    let index = _.findIndex(todos, todo => todo.id == id);
+    let todo = _.clone(state.get(['todos', index]), true);
+    todo.status = todo.status == COMPLETED_TODO ? ACTIVE_TODO : COMPLETED_TODO;
+    todo.checked = !todo.checked;
+
+    state.set(['todos', index], todo);
   },
 
   toggleAllCompletedTodo ( { isCompleted }, state ) {
