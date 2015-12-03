@@ -23,7 +23,8 @@ module.exports = {
 
   /**
    * Sets todos to state
-   * @param {object} todos - array of todos
+   * @param {object} args
+   * @param {array} args.todos - array of todos
    * @param {object} state
    */
   setTodos ({ todos }, state) {
@@ -32,7 +33,8 @@ module.exports = {
 
   /**
    * Validates todo's text
-   * @param {object} value - text for new todo
+   * @param {object} args
+   * @param {object} args.value - text for new todo
    * @param {object} state
    * @param {object} output
    */
@@ -65,7 +67,8 @@ module.exports = {
 
   /**
    * Removes todo from state
-   * @param {object} id - todo identifier
+   * @param {object} args
+   * @param {string} args.id - todo identifier
    * @param {object} state
    */
   removeTodo ({ id }, state) {
@@ -78,7 +81,8 @@ module.exports = {
    * @param {object} args
    * @param {object} state
    * @param {object} output
-   * @param {object} locator
+   * @param {object} services
+   * @param {object} services.locator
    */
   syncTodoInStorage (args, state, output, { locator }) {
     var storage = locator.resolve('storage');
@@ -163,7 +167,8 @@ module.exports = {
 
   /**
    * Sets editing todo
-   * @param {object} id - todo identifier
+   * @param {object} args
+   * @param {string} args.id - todo identifier
    * @param {object} state
    */
   setEditingTodo ({ id }, state) {
@@ -195,7 +200,8 @@ module.exports = {
 
   /**
    * Toggles todo from completed to active and back
-   * @param {object} id
+   * @param {object} args
+   * @param {string} args.id
    * @param {object} state
    */
   toggleCompletedTodo ( { id }, state) {
@@ -210,7 +216,8 @@ module.exports = {
 
   /**
    * Toggles all todos from completed to active and back
-   * @param {object} isCompleted
+   * @param {object} args
+   * @param {boolean} args.isCompleted
    * @param {object} state
    */
   toggleAllCompletedTodo ( { isCompleted }, state ) {
