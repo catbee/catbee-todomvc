@@ -1,10 +1,5 @@
 <li>
-	<a
-      class="filter-item
-        {{#if activeFilter}}
-          {{#eq activeFilter item.name}}selected{{/eq}}
-        {{/if}}"
-        {{#if mode}}class="{{mode}}"{{/if}}
+	<a class="filter-item {{#eq activeFilter item.name}}selected{{/eq}}"{{#if mode}}class="{{mode}}"{{/if}}
       href="{{url}}">{{item.name}}
   </a>
 </li>
