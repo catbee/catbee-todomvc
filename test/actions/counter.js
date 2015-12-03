@@ -1,7 +1,7 @@
 var Lab = require('lab');
 var lab = exports.lab = Lab.script();
 var assert = require('assert');
-var counterAction = require('../../actions/counterAction.js');
+var counterAction = require('../../actions/counterAction');
 
 var Baobab = require('baobab');
 
