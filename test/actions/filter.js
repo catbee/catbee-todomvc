@@ -11,7 +11,7 @@ const FILTERS_LIST = [
   { name: 'completed'}
 ];
 
-lab.experiment('filtersAction.setFiltersList method', function () {
+lab.experiment('filtersAction.setFiltersList method', () => {
   let state = new Baobab({});
 
   lab.test('Setting filters', done => {
@@ -20,10 +20,9 @@ lab.experiment('filtersAction.setFiltersList method', function () {
     assert.deepEqual(state.get(['filters', 'list']), FILTERS_LIST);
     done();
   });
-
 });
 
-lab.experiment('filtersAction.setActiveFilter method', function () {
+lab.experiment('filtersAction.setActiveFilter method', () => {
   let state;
 
   lab.beforeEach(done => {

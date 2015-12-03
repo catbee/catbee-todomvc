@@ -15,6 +15,7 @@ lab.experiment('statementsAction.setTitle method', () => {
     done();
   });
 });
+
 lab.experiment('statementsAction.setHeader method', () => {
   let state;
 
