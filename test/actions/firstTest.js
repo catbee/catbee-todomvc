@@ -35,7 +35,7 @@ lab.experiment('Adds "active" todos to state', function () {
   });
 
   lab.beforeEach(function (done) {
-    state.push(['todos'], createTodoItem());
+    state.push(['todos'], { id: +new Date(), status: 'active' });
     done();
   });
 
@@ -64,7 +64,7 @@ lab.experiment('Adds "active" todos to state', function () {
   });
 
   lab.beforeEach(function (done) {
-    state.push(['todos'], createTodoItem('completed'));
+    state.push(['todos'], { id: +new Date(), status: 'completed' });
     done();
   });
 
@@ -93,20 +93,21 @@ lab.experiment('Shuffeled acitve and completed todos in todos baobab field', fun
   });
 
   lab.beforeEach(function (done) {
-    createTodosWithRandomOrder(6, 5).map(todo => {
-      state.push(['todos'], todo);
-    });
+    state.push(['todos'], {id: +new Date(), status: 'active'});
+    state.push(['todos'], {id: +new Date(), status: 'active'});
+    state.push(['todos'], {id: +new Date(), status: 'completed'});
+    state.push(['todos'], {id: +new Date(), status: 'completed'});
     done();
   });
 
 
   lab.test('Six active todos in todos field', function (done) {
-    assert.equal(state.get(['counter']), 6);
+    assert.equal(state.get(['counter']), 2);
     done();
   });
 
   lab.test('Twelve active todos in todos field', function (done) {
-    assert.equal(state.get(['counter']), 12);
+    assert.equal(state.get(['counter']), 4);
     done();
   });
 
@@ -116,46 +117,3 @@ lab.experiment('Shuffeled acitve and completed todos in todos baobab field', fun
   })
 
 });
-
-function createTodoItem( status ) {
-  let todoStatus = status || 'active';
-  return {id: (+new Date() + Math.floor(Math.random() * 999999)), status: todoStatus};
-}
-
-function createTodosWithRandomOrder(countActive, countCompleted) {
-  let todos = [];
-
-  for (let i=0; i < countActive; i++) {
-    todos.push(createTodoItem());
-  }
-  for (let i=0; i < countCompleted; i++) {
-    todos.push(createTodoItem('completed'));
-  }
-
-  shuffle(todos);
-
-  return todos;
-}
-
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex ;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
