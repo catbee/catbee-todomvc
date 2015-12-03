@@ -1,9 +1,17 @@
 var todoAction = require('../actions/todoAction');
 
+/**
+ * Double click on item
+ * @type {*[]}
+ */
 exports.todoItemDoubleClick = [
   todoAction.setEditingTodo
 ];
 
+/**
+ * Enter on item
+ * @type {*[]}
+ */
 exports.todoItemOnEnter = [
   todoAction.validateNewTodo, {
     success: [
@@ -20,6 +28,10 @@ exports.todoItemOnEnter = [
   }
 ];
 
+/**
+ * Click to check/uncheck item
+ * @type {*[]}
+ */
 exports.todoItemOnToggleCompleted = [
   todoAction.toggleCompletedTodo,
   todoAction.setSyncFlag,
@@ -28,4 +40,13 @@ exports.todoItemOnToggleCompleted = [
       success: [ todoAction.removeSyncFlag ]
     }
   ]
+];
+
+
+/**
+ * Cancel editing item
+ * @type {*[]}
+ */
+exports.cancelEditingTodo = [
+  todoAction.cancelEditingTodo
 ];

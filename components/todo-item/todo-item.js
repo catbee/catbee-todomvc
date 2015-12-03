@@ -1,3 +1,6 @@
+/**
+ * Todo item component
+ */
 class TodoItem {
   render () {
     return this.$context.getWatcherData();
@@ -6,17 +9,25 @@ class TodoItem {
   bind () {
     return {
       dblclick: {
-
-        '.view': () => this.$context.signal('todoItemDoubleClick', { id: this.$context.attributes['cat-id'] })
+        /**
+         * Edites item
+         */
+        '.view': () => {
+          this.$context.signal('todoItemDoubleClick', { id: this.$context.attributes['cat-id'] });
+        }
 
       },
 
       click: {
-
+        /**
+         * Removes item
+         */
         '.destroy': () => {
           this.$context.signal('removeTodo', {id: this.$context.attributes['cat-id']});
         },
-
+        /**
+         * Toggle item as completed/not completed
+         */
         '.toggle': () => {
           this.$context.signal('todoItemOnToggleCompleted', { id: this.$context.attributes['cat-id'] });
         }
@@ -24,7 +35,10 @@ class TodoItem {
       },
 
       keydown: {
-
+        /**
+         * Saves edited item
+         * @param {object} e
+         */
         '.edit': e => {
           if (e.keyCode == 13) {
             let attr = this.$context.attributes;

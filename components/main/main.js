@@ -1,3 +1,6 @@
+/**
+ * Main component
+ */
 class Main {
 
   render () {
@@ -7,6 +10,10 @@ class Main {
   bind () {
     return {
       click: {
+        /**
+         * Toggle all items as completed/not completed
+         * @param {object} e
+         */
         '.toggle-all': (e) => {
           this.$context.signal('toggleAllCompleted', { isCompleted: e.target.checked });
         }

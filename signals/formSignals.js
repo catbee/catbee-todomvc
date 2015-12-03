@@ -2,10 +2,18 @@ var utilsAction = require('../actions/utilsAction');
 var todoAction = require('../actions/todoAction');
 var filtersAction = require('../actions/filtersAction');
 
+/**
+ * Sets new input's value
+ * @type {*[]}
+ */
 exports.newTodoInput = [
   utilsAction.setInputValue
 ];
 
+/**
+ * Adds new todo item
+ * @type {*[]}
+ */
 exports.addNewTodo = [
   todoAction.validateNewTodo, {
     success: [
@@ -22,6 +30,10 @@ exports.addNewTodo = [
   }
 ];
 
+/**
+ * Removes todo
+ * @type {*[]}
+ */
 exports.removeTodo = [
   todoAction.removeTodo,
   todoAction.setSyncFlag,
@@ -32,6 +44,10 @@ exports.removeTodo = [
   ]
 ];
 
+/**
+ * Sets all todos as 'completed'/'not completed'
+ * @type {*[]}
+ */
 exports.toggleAllCompleted = [
   todoAction.toggleAllCompletedTodo,
   todoAction.setSyncFlag,
@@ -42,6 +58,10 @@ exports.toggleAllCompleted = [
   ]
 ];
 
+/**
+ * Removes all completed todos
+ * @type {*[]}
+ */
 exports.removeCompleted = [
   todoAction.removeCompletedTodo,
   todoAction.setSyncFlag,
@@ -52,6 +72,10 @@ exports.removeCompleted = [
   ]
 ];
 
+/**
+ * Sets active filter
+ * @type {*[]}
+ */
 exports.setActiveFilter = [
   filtersAction.setActiveFilter
 ];

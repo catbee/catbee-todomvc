@@ -1,3 +1,6 @@
+/**
+ * Input component
+ */
 class Input {
   render () {
     return this.$context.getWatcherData()
@@ -9,6 +12,10 @@ class Input {
   bind () {
     return {
       input: {
+        /**
+         * Sets new value for new input
+         * @param {object} e
+         */
         input: e => {
           var value = e.currentTarget.value;
           var path = this.$context.attributes.path;
