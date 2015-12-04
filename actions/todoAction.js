@@ -16,6 +16,10 @@ module.exports = {
   loadStorageTodos (args, state, output, { locator }) {
     var storage = locator.resolve('storage');
 
+    if (!global.localStorage) {
+      global.localStorage = locator.resolve('localStorage');
+    }
+
     storage.getByKey(STORAGE_KEY)
       .then(todos => output.success({ todos }))
       .catch(error => output.error({ error }));

@@ -7,7 +7,12 @@ var Baobab = require('baobab');
 var storage = require('../../services/storage');
 
 var ServiceLocator = require('catberry-locator');
+
+var localStorage = createLocalStorage();
+
 var catLocator = new ServiceLocator();
+
+catLocator.registerInstance('localStorage', localStorage);
 
 catLocator.registerInstance('config', {});
 storage.register(catLocator);
@@ -19,16 +24,11 @@ lab.experiment('todoAction.loadStorageTodos method', () => {
   lab.beforeEach(done => {
     state = new Baobab({});
     output = {};
-    global.localStorage = {};
     done();
   });
 
   lab.test('Successful service answer', done => {
-    global.localStorage = {
-      getItem: () => {
-        return JSON.stringify({id: 'test'});
-      }
-    };
+    localStorage.setItem('TODO_LIST', JSON.stringify({id: 'test'}));
     output = {
       success: todos => {
         assert.deepEqual(todos, {todos: {id: 'test'}});
@@ -40,12 +40,11 @@ lab.experiment('todoAction.loadStorageTodos method', () => {
   });
 
   lab.test('Unsuccessful service answer', done => {
-    global.localStorage = {
-      getItem: () => {
-        return {id: 'test'};
-      }
-    };
+    localStorage.setItem('TODO_LIST', {id: 'test'});
     output = {
+      success: () => {
+
+      },
       error: ({error}) => {
         assert.equal(error instanceof Error, true);
         done();
@@ -174,3 +173,25 @@ lab.experiment('todoAction.removeTodo method', () => {
     done();
   });
 });
+
+function createLocalStorage () {
+  let _storage = {};
+  return {
+    setItem: function (key, value) {
+      _storage[key] = value || '';
+    },
+    getItem: function (key) {
+      return _storage[key] || null;
+    },
+    removeItem: function (key) {
+      delete _storage[key];
+    },
+    get length () {
+      return Object.keys(_storage).length;
+    },
+    key: function (i) {
+      var keys = Object.keys(_storage);
+      return keys[i] || null;
+    }
+  };
+}

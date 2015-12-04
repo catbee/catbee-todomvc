@@ -21,7 +21,7 @@
   "scripts": {
     "start": "node run.js",
     "lint": "node ./node_modules/.bin/eslint ./signals ./watchers ./components ./actions ./test",
-    "test": "lab -l -T node_modules/babel-lab ./test/actions/*.js"
+    "test": "lab -T node_modules/babel-lab ./test/actions/*.js"
   },
   "author": "k.kaysarov <defcuts@mail.ru>",
   "license": "MIT"
