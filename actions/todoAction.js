@@ -165,7 +165,7 @@ module.exports = {
         if (todos.length === 0) {
           return false;
         }
-        return todos.every((todo) => todo.status == COMPLETED_TODO)
+        return todos.every((todo) => todo.status == COMPLETED_TODO);
       }
     ]));
   },

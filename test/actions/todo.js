@@ -266,7 +266,7 @@ lab.experiment('todoAction.clearForm method', () => {
   lab.test('Clears input', done => {
     state.set(['form', 'input'], 'test');
     todoAction.clearForm({}, state);
-    assert.strictEqual(state.get(['form', 'input']), undefined);
+    assert.strictEqual(typeof state.get(['form', 'input']), 'undefined');
     done();
   });
 });
@@ -290,7 +290,7 @@ lab.experiment('todoAction.setTodosStateFlag method', () => {
   lab.test('There is one todo item', done => {
     todoAction.setTodosStateFlag({}, state);
 
-    state.set(['todos'], [{id:1}]);
+    state.set(['todos'], [{id: 1}]);
     assert.strictEqual(state.get(['isTodosNotEmpty']), true);
     done();
   });
@@ -299,7 +299,7 @@ lab.experiment('todoAction.setTodosStateFlag method', () => {
     todoAction.setTodosStateFlag({}, state);
 
     state.set(['todos'], []);
-    state.push(['todos'], {id:1});
+    state.push(['todos'], {id: 1});
     assert.strictEqual(state.get(['isTodosNotEmpty']), true);
 
     state.unset(['todos', 0]);
@@ -327,10 +327,10 @@ lab.experiment('todoAction.setCompletedAllStateFlag method', () => {
     todoAction.setCompletedAllStateFlag({}, state);
 
     state.set(['todos'], []);
-    state.push(['todos'], {id:1, status: 'completed'});
+    state.push(['todos'], {id: 1, status: 'completed'});
     assert.strictEqual(state.get(['allCompleted']), true);
 
-    state.push(['todos'], {id:2, status: 'completed'});
+    state.push(['todos'], {id: 2, status: 'completed'});
     assert.strictEqual(state.get(['allCompleted']), true);
     done();
   });
@@ -339,10 +339,10 @@ lab.experiment('todoAction.setCompletedAllStateFlag method', () => {
     todoAction.setCompletedAllStateFlag({}, state);
 
     state.set(['todos'], []);
-    state.push(['todos'], {id:1, status: 'active'});
+    state.push(['todos'], {id: 1, status: 'active'});
     assert.strictEqual(state.get(['allCompleted']), false);
 
-    state.push(['todos'], {id:2, status: 'active'});
+    state.push(['todos'], {id: 2, status: 'active'});
     assert.strictEqual(state.get(['allCompleted']), false);
     done();
   });
@@ -351,10 +351,10 @@ lab.experiment('todoAction.setCompletedAllStateFlag method', () => {
     todoAction.setCompletedAllStateFlag({}, state);
 
     state.set(['todos'], []);
-    state.push(['todos'], {id:1, status: 'completed'});
+    state.push(['todos'], {id: 1, status: 'completed'});
     assert.strictEqual(state.get(['allCompleted']), true);
 
-    state.push(['todos'], {id:2, status: 'active'});
+    state.push(['todos'], {id: 2, status: 'active'});
     assert.strictEqual(state.get(['allCompleted']), false);
     done();
   });
@@ -409,7 +409,7 @@ lab.experiment('todoAction.toggleCompletedTodo method', () => {
 
   lab.test('Toggle to complete', done => {
     let id = 1;
-    state.set(['todos'], [{id:1, status: 'active', checked: false}]);
+    state.set(['todos'], [{id: 1, status: 'active', checked: false}]);
 
     todoAction.toggleCompletedTodo({id}, state);
     assert.equal(state.get(['todos', 0, 'status']), 'completed');
@@ -419,7 +419,7 @@ lab.experiment('todoAction.toggleCompletedTodo method', () => {
 
   lab.test('Toggle to not complete', done => {
     let id = 1;
-    state.set(['todos'], [{id:1, status: 'completed', checked: true}]);
+    state.set(['todos'], [{id: 1, status: 'completed', checked: true}]);
 
     todoAction.toggleCompletedTodo({id}, state);
     assert.equal(state.get(['todos', 0, 'status']), 'active');
@@ -570,19 +570,19 @@ lab.experiment('todoAction.setComputedTodos method', () => {
 function createLocalStorage () {
   let _storage = {};
   return {
-    setItem: function (key, value) {
+    setItem: function setItem (key, value) {
       _storage[key] = value || '';
     },
-    getItem: function (key) {
+    getItem: function getItem (key) {
       return _storage[key] || null;
     },
-    removeItem: function (key) {
+    removeItem: function removeItem (key) {
       delete _storage[key];
     },
     get length () {
       return Object.keys(_storage).length;
     },
-    key: function (i) {
+    key: function key (i) {
       var keys = Object.keys(_storage);
       return keys[i] || null;
     }
