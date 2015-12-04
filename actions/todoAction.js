@@ -7,7 +7,7 @@ const ACTIVE_TODO = 'active';
 
 module.exports = {
   /**
-   * Loads todos from localStorage
+   * Loads todos from _localStorage
    * @param {object} args
    * @param {object} state
    * @param {object} output
@@ -15,10 +15,6 @@ module.exports = {
    */
   loadStorageTodos (args, state, output, { locator }) {
     var storage = locator.resolve('storage');
-
-    if (!global.localStorage) {
-      global.localStorage = locator.resolve('localStorage');
-    }
 
     storage.getByKey(STORAGE_KEY)
       .then(todos => output.success({ todos }))
@@ -104,7 +100,7 @@ module.exports = {
    */
   setTodosIdsMap (args, state) {
     state.set('todoIds', Baobab.monkey([
-      ['todos'], (todos) => todos.map(todo => todo.id)
+      ['todos'], (todos = []) => todos.map(todo => todo.id)
     ]));
   },
 
@@ -165,7 +161,12 @@ module.exports = {
       return;
     }
     state.set(['allCompleted'], Baobab.monkey([
-      ['todos'], (todos = []) => todos.every((todo) => todo.status == COMPLETED_TODO)
+      ['todos'], (todos = []) => {
+        if (todos.length === 0) {
+          return false;
+        }
+        return todos.every((todo) => todo.status == COMPLETED_TODO)
+      }
     ]));
   },
 

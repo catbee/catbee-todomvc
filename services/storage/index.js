@@ -1,15 +1,23 @@
 var DELAY = 250;
 
 class Storage {
+  constructor ($window) {
+    this._window = $window;
+
+    if (this._window) {
+      this.localStorage = this._window.localStorage;
+    }
+  }
+
   getByKey (key) {
     return new Promise((resolve, reject) => {
-      if (!global.localStorage) {
+      if (!this.localStorage) {
         resolve();
         return;
       }
 
       setTimeout(() => {
-        var value = localStorage.getItem(key);
+        var value = this.localStorage.getItem(key);
 
         try {
           value = JSON.parse(value);
@@ -24,13 +32,13 @@ class Storage {
 
   setByKey (key, value) {
     return new Promise((resolve) => {
-      if (!global.localStorage) {
+      if (!this.localStorage) {
         resolve();
         return;
       }
 
       setTimeout(() => {
-        localStorage.setItem(key, JSON.stringify(value));
+        this.localStorage.setItem(key, JSON.stringify(value));
         resolve();
       }, DELAY);
     });
@@ -38,15 +46,15 @@ class Storage {
 
   clearByKey(key, todoId) {
     return new Promise((resolve) => {
-      if (!global.localStorage) {
+      if (!this.localStorage) {
         resolve();
         return;
       }
 
       setTimeout(() => {
-        let updatedStor = JSON.parse(localStorage.getItem(key));
+        let updatedStor = JSON.parse(this.localStorage.getItem(key));
         updatedStor.splice(todoId,1);
-        localStorage.setItem(key, updatedStor);
+        this.localStorage.setItem(key, updatedStor);
         resolve();
       }, DELAY);
     });
