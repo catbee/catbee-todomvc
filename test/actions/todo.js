@@ -412,8 +412,7 @@ lab.experiment('todoAction.toggleCompletedTodo method', () => {
     state.set(['todos'], [{id: 1, status: 'active', checked: false}]);
 
     todoAction.toggleCompletedTodo({id}, state);
-    assert.equal(state.get(['todos', 0, 'status']), 'completed');
-    assert.equal(state.get(['todos', 0, 'checked']), true);
+    assert.deepEqual(state.get(['todos']), [{id: 1, status: 'completed', checked: true}]);
     done();
   });
 
@@ -422,8 +421,7 @@ lab.experiment('todoAction.toggleCompletedTodo method', () => {
     state.set(['todos'], [{id: 1, status: 'completed', checked: true}]);
 
     todoAction.toggleCompletedTodo({id}, state);
-    assert.equal(state.get(['todos', 0, 'status']), 'active');
-    assert.equal(state.get(['todos', 0, 'checked']), false);
+    assert.deepEqual(state.get(['todos']), [{id: 1, status: 'active', checked: false}]);
     done();
   });
 });
@@ -444,10 +442,10 @@ lab.experiment('todoAction.toggleAllCompletedTodo method', () => {
     ]);
 
     todoAction.toggleAllCompletedTodo({isCompleted}, state);
-    assert.equal(state.get(['todos', 0, 'status']), 'completed');
-    assert.equal(state.get(['todos', 0, 'checked']), true);
-    assert.equal(state.get(['todos', 1, 'status']), 'completed');
-    assert.equal(state.get(['todos', 1, 'checked']), true);
+    assert.deepEqual(state.get(['todos']), [
+      {status: 'completed', checked: true},
+      {status: 'completed', checked: true}
+    ]);
     done();
   });
 
@@ -459,10 +457,10 @@ lab.experiment('todoAction.toggleAllCompletedTodo method', () => {
     ]);
 
     todoAction.toggleAllCompletedTodo({isCompleted}, state);
-    assert.equal(state.get(['todos', 0, 'status']), 'active');
-    assert.equal(state.get(['todos', 0, 'checked']), false);
-    assert.equal(state.get(['todos', 1, 'status']), 'active');
-    assert.equal(state.get(['todos', 1, 'checked']), false);
+    assert.deepEqual(state.get(['todos']), [
+      {status: 'active', checked: false},
+      {status: 'active', checked: false}
+    ]);
     done();
   });
 });
@@ -510,9 +508,7 @@ lab.experiment('todoAction.setComputedTodos method', () => {
     todoAction.setComputedTodos({}, state);
     state.set(['filters', 'isActive'], 'all');
     state.push(['todos'], {status: 'active'});
-    assert.equal(state.get(['todosComputed']).length, 1, 'Should be one item');
-    assert.equal(state.get(['todosComputed', 0, 'status']), 'active');
-    assert.equal(state.get(['todosComputed', 0, 'shown']), true);
+    assert.deepEqual(state.get(['todosComputed']), [{status: 'active', shown: true}]);
     done();
   });
 
@@ -520,9 +516,7 @@ lab.experiment('todoAction.setComputedTodos method', () => {
     todoAction.setComputedTodos({}, state);
     state.set(['filters', 'isActive'], 'all');
     state.push(['todos'], {status: 'completed'});
-    assert.equal(state.get(['todosComputed']).length, 1, 'Should be one item');
-    assert.equal(state.get(['todosComputed', 0, 'status']), 'completed');
-    assert.equal(state.get(['todosComputed', 0, 'shown']), true);
+    assert.deepEqual(state.get(['todosComputed']), [{status: 'completed', shown: true}]);
     done();
   });
 
@@ -530,9 +524,7 @@ lab.experiment('todoAction.setComputedTodos method', () => {
     todoAction.setComputedTodos({}, state);
     state.set(['filters', 'isActive'], 'active');
     state.push(['todos'], {status: 'active'});
-    assert.equal(state.get(['todosComputed']).length, 1, 'Should be one item');
-    assert.equal(state.get(['todosComputed', 0, 'status']), 'active');
-    assert.equal(state.get(['todosComputed', 0, 'shown']), true);
+    assert.deepEqual(state.get(['todosComputed']), [{status: 'active', shown: true}]);
     done();
   });
 
@@ -540,9 +532,7 @@ lab.experiment('todoAction.setComputedTodos method', () => {
     todoAction.setComputedTodos({}, state);
     state.set(['filters', 'isActive'], 'active');
     state.push(['todos'], {status: 'completed'});
-    assert.equal(state.get(['todosComputed']).length, 1, 'Should be one item');
-    assert.equal(state.get(['todosComputed', 0, 'status']), 'completed');
-    assert.equal(state.get(['todosComputed', 0, 'shown']), false);
+    assert.deepEqual(state.get(['todosComputed']), [{status: 'completed', shown: false}]);
     done();
   });
 
@@ -550,9 +540,7 @@ lab.experiment('todoAction.setComputedTodos method', () => {
     todoAction.setComputedTodos({}, state);
     state.set(['filters', 'isActive'], 'completed');
     state.push(['todos'], {status: 'active'});
-    assert.equal(state.get(['todosComputed']).length, 1, 'Should be one item');
-    assert.equal(state.get(['todosComputed', 0, 'status']), 'active');
-    assert.equal(state.get(['todosComputed', 0, 'shown']), false);
+    assert.deepEqual(state.get(['todosComputed']), [{status: 'active', shown: false}]);
     done();
   });
 
@@ -560,9 +548,7 @@ lab.experiment('todoAction.setComputedTodos method', () => {
     todoAction.setComputedTodos({}, state);
     state.set(['filters', 'isActive'], 'completed');
     state.push(['todos'], {status: 'completed'});
-    assert.equal(state.get(['todosComputed']).length, 1, 'Should be one item');
-    assert.equal(state.get(['todosComputed', 0, 'status']), 'completed');
-    assert.equal(state.get(['todosComputed', 0, 'shown']), true);
+    assert.deepEqual(state.get(['todosComputed']), [{status: 'completed', shown: true}]);
     done();
   });
 });
