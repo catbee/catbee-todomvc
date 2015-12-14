@@ -1,3 +1,5 @@
 <li>
-	<a {{#if mode}}class="{{mode}}"{{/if}} href="{{url}}">{{name}}</a>
+	<a class="filter-item {{#eq activeFilter item.name}}selected{{/eq}}"{{#if mode}}class="{{mode}}"{{/if}}
+      href="{{url}}">{{item.name}}
+  </a>
 </li>

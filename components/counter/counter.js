@@ -1,3 +1,6 @@
+/**
+ * Counter component. Counts active todos
+ */
 class Counter {
 
   render () {

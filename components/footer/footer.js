@@ -1,3 +1,6 @@
+/**
+ * Footer component
+ */
 class Footer {
 
 }

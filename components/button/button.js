@@ -1,3 +1,6 @@
+/**
+ * Button component
+ */
 class Button {
   render () {
     return this.$context.attributes;
@@ -8,6 +11,10 @@ class Button {
 
     return {
       click: {
+        /**
+         * Sends signal that depends of attribute 'signal' when clicking button
+         * @param {object} e
+         */
         button: e => {
           e.preventDefault();
 
@@ -20,7 +27,7 @@ class Button {
           });
         }
       }
-    }
+    };
   }
 }
 
