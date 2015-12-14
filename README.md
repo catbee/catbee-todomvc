@@ -1,6 +1,4 @@
-<div align="center">
-  <img src="https://raw.githubusercontent.com/markuplab/catbee-todomvc/master/logo.png" width="250" height="250" />
-</div>
+<img src="https://raw.githubusercontent.com/markuplab/catbee-todomvc/master/logo.png" width="175" height="175" />
 
 ### Catbee Todo
 
