@@ -19,7 +19,7 @@
     "lab": "^7.2.0"
   },
   "scripts": {
-    "start": "node run.js",
+    "start": "node run.js & node build.js",
     "lint": "node ./node_modules/.bin/eslint ./signals ./watchers ./components ./actions ./test",
     "test": "lab -T node_modules/babel-lab ./test/actions/*.js"
   },
