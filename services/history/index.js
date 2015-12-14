@@ -1,57 +1,16 @@
 var _ = require('lodash');
-
-var header = `
-  border-left: 6px solid gold;
-  font-weight: bold;
-  font-family: Helvetica;
-  font-size: 16px;
-  line-height: 30px;
-  display: block;
-  padding-left: 8px;
-`;
-
-var sub = `
-  font-family: Helvetica;
-  font-size: 12px;
-  font-weight: bold;
-  line-height: 16px;
-`;
-
-var dump = `
-  font-family: Helvetica;
-  font-size: 13px;
-  line-height: 18px;
-`;
-
-var group = `
-  font-family: Helvetica;
-  font-size: 14px;
-  line-height: 28px;
-  font-weight: normal;
-  border-left: 6px solid royalblue;
-  padding-left: 8px;
-  color: #333;
-`;
-
-var action = `
-  font-family: Helvetica;
-  font-size: 14px;
-  line-height: 34px;
-  font-weight: normal;
-  background: #F5F5F5;
-  border: 1px solid #CCCCCC;
-  color: #000;
-  padding: 4px 10px;
-`;
+var styles = require('./styles');
 
 class History {
-  constructor ($eventBus, $serviceLocator, $logger) {
+  constructor ($eventBus, $serviceLocator, $logger, $window) {
     this._eventBus = $eventBus;
     this._locator = $serviceLocator;
     this._logger = $logger;
     this._history = [];
+    this._clear = true;
+    this._tracking = true;
 
-    this._eventBus.on('signalEnd', (result) => this._history.push(result));
+    this._eventBus.on('signalEnd', (result) => this._remember(result));
   }
 
   /**
@@ -69,63 +28,171 @@ class History {
   _locator = null;
 
   /**
+   * Clear console on any action
+   * @type {Boolean}
+   * @private
+   */
+  _clear = true;
+
+  /**
+   * Start position of debugger
+   * @type {number}
+   * @private
+   */
+  _currentIndex = 0;
+
+  /**
+   * Track (or not) new signals
+   * @type {boolean}
+   * @private
+   */
+  _tracking = true;
+
+  /**
    * Log tree state
    */
   logTree () {
     var tree = this._getTree();
     var data = tree.get();
 
-    console.clear();
+    if (this._clear) {
+      console.clear();
+    }
 
-    console.log('%cCurrent state:', header);
+    console.log('%cCurrent state:', styles.header);
     console.info(data);
   }
 
   /**
-   * Log latest mutations
+   * Log current signal
    */
-  logMutation () {
-    var last = _.last(this._history);
-    var size = _.size(this._history);
+  logSignal () {
+    if (this._clear) {
+      console.clear();
+    }
 
-    console.clear();
+    var signal = this._history[this._currentIndex];
+    var size = Object.keys(this._history).length;
 
-    console.log(`%cSignal "${last.name}" (${size} of ${size})`, header);
-    console.log(`%cSignal run with next args:`, header);
-    console.log('%c%s', dump, JSON.stringify(last.args, null, 4));
+    console.log(`%cSignal "${signal.name}" (${this._currentIndex + 1} of ${size})`, styles.header);
+    this._logArgs(signal);
+    console.log('%cSignal actions:', styles.header);
 
-    console.log('%cSignal actions:', header);
-
-    _.each(last.branches, (branch, index, list) => {
-      var size = _.size(list);
-      var isAsync = _.isArray(branch);
+    signal.branches.forEach((branch) => {
+      var isAsync = Array.isArray(branch);
 
       if (isAsync) {
-        console.log(`%cAsync actions debug current not supported! Sorry! (${index + 1} of ${size})`, action);
-      } else {
-        console.log(`%cAction: ${branch.name} (${index + 1} of ${size})`, action);
-
-        _.each(branch.mutations, (mutation) => {
-          var name = _.capitalize(mutation.name);
-          var path = mutation.path.join('.');
-          var args = _.first(mutation.args);
-
-          console.groupCollapsed(`%c${name}`, group);
-          console.log(`%cPath: %c ${path}`, dump, sub);
-          console.log(`%cValue: %c %o`, dump, sub, args);
-          console.groupEnd();
+        branch.forEach((asyncBranch) => {
+          this._logBranch(asyncBranch);
         });
+      } else {
+        this._logBranch(branch);
       }
     });
   }
 
   /**
+   * Log next signal and set step index
+   */
+  goNextSignal () {
+    var size = Object.keys(this._history).length;
+    var current = this._currentIndex;
+
+    if (current + 1 >= size) {
+      this.logSignal();
+      return;
+    }
+
+    this._currentIndex += 1;
+    this.logSignal();
+  }
+
+  /**
+   * Log previous signal and set step index
+   */
+  goPreviousSignal () {
+    var current = this._currentIndex;
+
+    if (current <= 0) {
+      this.logSignal();
+      return;
+    }
+
+    this._currentIndex -= 1;
+    this.logSignal();
+  }
+
+  /**
+   * Log signal args
+   * @param {Object} signal
+   * @private
+   */
+  _logArgs (signal) {
+    console.log(`%cSignal run with next args:`, styles.header);
+    console.info(signal.args);
+  }
+
+  /**
+   * Log branch
+   * @param {Object} branch
+   * @private
+   */
+  _logBranch (branch) {
+    if (branch.outputPath) {
+      console.groupCollapsed(`%c${branch.name} · %cOutput to "${branch.outputPath}"`, styles.action, styles.output);
+    } else {
+      console.log(`%c${branch.name}`, styles.action);
+    }
+
+    _.each(branch.mutations, (mutation) => {
+      var name = _.capitalize(mutation.name);
+      var path = mutation.path.join('.');
+      var args = _.first(mutation.args);
+
+      console.log(`%c${name} · ${path} · %c%o`, styles.group, styles.sub, args);
+    });
+
+    if (branch.outputPath) {
+      var output = branch.outputs[branch.outputPath];
+      output.forEach((outputBranch) => {
+        var isAsync = Array.isArray(outputBranch);
+
+        if (isAsync) {
+          outputBranch.forEach((asyncBranch) => {
+            this._logBranch(asyncBranch);
+          });
+        } else {
+          this._logBranch(outputBranch);
+        }
+      });
+
+      console.groupEnd();
+    }
+  }
+
+  /**
    * Get state tree instance
+   * @return {Baobab}
    * @private
    */
   _getTree () {
     var renderer = this._locator.resolve('documentRenderer');
     return renderer._state._tree;
+  }
+
+  /**
+   * Save history
+   * @param {Object} result
+   * @private
+   */
+  _remember (result) {
+    this._history.push(result);
+
+    if (this._tracking) {
+      this._currentIndex = Object.keys(this._history).length - 1;
+    }
+
+    this.logSignal();
   }
 }
 

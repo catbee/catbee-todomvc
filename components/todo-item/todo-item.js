@@ -15,7 +15,6 @@ class TodoItem {
         '.view': () => {
           this.$context.signal('todoItemDoubleClick', { id: this.$context.attributes['cat-id'] });
         }
-
       },
 
       click: {
@@ -31,7 +30,6 @@ class TodoItem {
         '.toggle': () => {
           this.$context.signal('todoItemOnToggleCompleted', { id: this.$context.attributes['cat-id'] });
         }
-
       },
 
       keydown: {
@@ -45,7 +43,6 @@ class TodoItem {
             this.$context.signal('todoItemOnEnter', { id: attr['cat-id'], value: e.currentTarget.value });
           }
         }
-
       }
     };
   }
