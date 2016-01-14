@@ -10,3 +10,5 @@ npm i
 npm start
 http://localhost:3000/
 ```
+
+#### Open console for track state mutations.
