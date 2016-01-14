@@ -10,7 +10,8 @@
     "catberry-handlebars": "^1.0.8",
     "compression": "^1.6.0",
     "express": "^4.13.3",
-    "lodash": "^3.10.1"
+    "lodash": "^3.10.1",
+    "module-deps": "^4.0.4"
   },
   "devDependencies": {
     "babel-eslint": "^4.0.5",
