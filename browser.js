@@ -1,5 +1,5 @@
 var catbee = require('catbee');
-var handlebars = require('catberry-handlebars');
+var handlebars = require('catbee-handlebars');
 var storage = require('./services/storage');
 var helpers = require('./services/helpers');
 var history = require('./services/history');

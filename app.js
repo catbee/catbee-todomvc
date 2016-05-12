@@ -5,7 +5,7 @@
  */
 var catbee = require('catbee');
 var express = require('express');
-var handlebars = require('catberry-handlebars');
+var handlebars = require('catbee-handlebars');
 var path = require('path');
 var compression = require('compression');
 var storage = require('./services/storage');

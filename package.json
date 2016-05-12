@@ -5,9 +5,10 @@
   "main": "run.js",
   "dependencies": {
     "babel": "^5.6.14",
+    "baobab": "^2.3.3",
     "catbee": "^2.0.0",
+    "catbee-handlebars": "^4.0.1",
     "catberry-es6": "^1.0.1",
-    "catberry-handlebars": "^1.0.8",
     "compression": "^1.6.0",
     "express": "^4.13.3",
     "lodash": "^3.10.1"

@@ -56,7 +56,7 @@ module.exports = {
     let id = (+new Date() + Math.floor(Math.random() * 999999));
 
     var todo = {
-      name: name,
+      name: name.trim(),
       id: id,
       status: 'active',
       shown: true

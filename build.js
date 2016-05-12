@@ -1,7 +1,7 @@
 require('babel/register');
 
 var catbee = require('catbee');
-var handlebars = require('catberry-handlebars');
+var handlebars = require('catbee-handlebars');
 var babel = require('catberry-es6');
 
 var cat = catbee.create({});
