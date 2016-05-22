@@ -1,5 +1,3 @@
-require('babel/register');
-
 /**
  * Зависимости модуля
  */
@@ -22,7 +20,9 @@ var config = {
  * @returns {Promise}
  */
 function start (instance) {
-  return http.createServer(instance).listen(config.port);
+  return http
+    .createServer(instance)
+    .listen(config.port);
 }
 
 /**

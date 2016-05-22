@@ -4,25 +4,23 @@
   "description": "Catbee TodoMVC",
   "main": "run.js",
   "dependencies": {
-    "babel": "^5.6.14",
     "baobab": "^2.3.3",
-    "catbee": "^2.0.0",
-    "catbee-handlebars": "^4.0.1",
-    "catberry-es6": "^1.0.1",
+    "catbee": "^3.0.0-alpha.0",
+    "catbee-web-components": "^1.0.0-alpha.1",
+    "classnames": "^2.2.5",
+    "common-tags": "^0.1.1",
     "compression": "^1.6.0",
     "express": "^4.13.3",
     "lodash": "^3.10.1"
   },
   "devDependencies": {
-    "babel-eslint": "^4.0.5",
-    "babel-lab": "^1.0.0",
     "eslint": "^1.1.0",
     "lab": "^7.2.0"
   },
   "scripts": {
     "start": "node run.js & node build.js",
-    "lint": "node ./node_modules/.bin/eslint ./signals ./watchers ./components ./actions ./test",
-    "test": "lab -T node_modules/babel-lab ./test/actions/*.js"
+    "lint": "eslint ./signals ./watchers ./components ./actions ./test",
+    "test": "lab ./test/actions/*.js"
   },
   "author": "k.kaysarov <defcuts@mail.ru>",
   "license": "MIT"

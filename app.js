@@ -1,15 +1,16 @@
 /**
  * Сборщик серверного приложения на основе
- * <catberry> и <express>. Служит для
+ * <catbee> и <express>. Служит для
  * создания инстанса приложения.
  */
 var catbee = require('catbee');
+var components = require('catbee-web-components');
 var express = require('express');
-var handlebars = require('catbee-handlebars');
 var path = require('path');
 var compression = require('compression');
 var storage = require('./services/storage');
-var helpers = require('./services/helpers');
+var routes = require('./routes');
+var document = require('./components/document');
 
 /**
  * Создание инстанса приложения
@@ -23,9 +24,15 @@ exports.create = function create (config) {
 
   var staticPath = path.join(__dirname, config.staticPath);
 
-  handlebars.register(cat.locator);
-  helpers.register(cat.locator);
   storage.register(cat.locator);
+  components.register(cat.locator, document);
+
+  // Register routes
+  routes.forEach((route) => cat.registerRoute(route));
+
+  cat.locator
+    .resolve('eventBus')
+    .on('error', (error) => console.log(error));
 
   app.use(compression());
   app.use(cat.getMiddleware());

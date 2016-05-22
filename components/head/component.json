@@ -1,5 +1,0 @@
-{
-  "name": "head",
-  "logic": "./head.js",
-  "template": "./head.html"
-}

@@ -1,6 +1,8 @@
 module.exports = [
   {
     expression: '/',
-    signal: 'route'
+    args: {
+      signal: require('./signals/pageSignals').route
+    }
   }
 ];

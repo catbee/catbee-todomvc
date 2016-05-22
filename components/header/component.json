@@ -1,5 +1,0 @@
-{
-  "name": "header",
-  "logic": "./header.js",
-  "template": "./header.html"
-}

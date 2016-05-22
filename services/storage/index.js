@@ -64,6 +64,6 @@ class Storage {
 module.exports = {
   register (locator) {
     var config = locator.resolve('config');
-    locator.register('storage', Storage, config, true);
+    locator.register('storage', Storage, true);
   }
 };
