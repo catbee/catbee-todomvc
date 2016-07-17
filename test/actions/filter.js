@@ -1,9 +1,8 @@
-var Lab = require('lab');
-var lab = exports.lab = Lab.script();
-var assert = require('assert');
-var Baobab = require('baobab');
-
-var filterAction = require('../../actions/filtersAction');
+const Lab = require('lab');
+const lab = exports.lab = Lab.script();
+const assert = require('assert');
+const Baobab = require('baobab');
+const filter = require('../../actions/filters');
 
 const FILTERS_LIST = [
   { name: 'all' },
@@ -11,18 +10,18 @@ const FILTERS_LIST = [
   { name: 'completed'}
 ];
 
-lab.experiment('filtersAction.setFiltersList method', () => {
+lab.experiment('filters.setFiltersList method', () => {
   let state = new Baobab({});
 
   lab.test('Setting filters', done => {
-    filterAction.setFiltersList({}, state);
+    filter.setFiltersList({}, state);
 
     assert.deepEqual(state.get(['filters', 'list']), FILTERS_LIST);
     done();
   });
 });
 
-lab.experiment('filtersAction.setActiveFilter method', () => {
+lab.experiment('filters.setActiveFilter method', () => {
   let state;
 
   lab.beforeEach(done => {
@@ -31,7 +30,7 @@ lab.experiment('filtersAction.setActiveFilter method', () => {
   });
 
   lab.test('Setting filters', done => {
-    filterAction.setFiltersList({}, state);
+    filter.setFiltersList({}, state);
 
     assert.deepEqual(state.get(['filters', 'list']), FILTERS_LIST);
     done();
@@ -39,7 +38,7 @@ lab.experiment('filtersAction.setActiveFilter method', () => {
 
   lab.test('Set active filter "all"', done => {
     state.set(['filters', 'list'], FILTERS_LIST);
-    filterAction.setActiveFilter({index: 0}, state);
+    filter.setActiveFilter({index: 0}, state);
 
     assert.equal(state.get(['filters', 'isActive']), FILTERS_LIST[0].name);
     done();
@@ -47,7 +46,7 @@ lab.experiment('filtersAction.setActiveFilter method', () => {
 
   lab.test('Set active filter "active"', done => {
     state.set(['filters', 'list'], FILTERS_LIST);
-    filterAction.setActiveFilter({index: 1}, state);
+    filter.setActiveFilter({index: 1}, state);
 
     assert.equal(state.get(['filters', 'isActive']), FILTERS_LIST[1].name);
     done();
@@ -55,7 +54,7 @@ lab.experiment('filtersAction.setActiveFilter method', () => {
 
   lab.test('Set active filter "completed"', done => {
     state.set(['filters', 'list'], FILTERS_LIST);
-    filterAction.setActiveFilter({index: 2}, state);
+    filter.setActiveFilter({index: 2}, state);
 
     assert.equal(state.get(['filters', 'isActive']), FILTERS_LIST[2].name);
     done();

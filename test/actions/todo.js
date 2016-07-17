@@ -1,25 +1,19 @@
-var Lab = require('lab');
-var lab = exports.lab = Lab.script();
-var assert = require('assert');
-var todoAction = require('../../actions/todoAction');
+const Lab = require('lab');
+const lab = exports.lab = Lab.script();
+const assert = require('assert');
+const todo = require('../../actions/todo');
+const Baobab = require('baobab');
+const storage = require('../../services/storage');
+const ServiceLocator = require('catberry-locator');
+const locator = new ServiceLocator();
+const localStorage = createLocalStorage();
 
-var Baobab = require('baobab');
-var storage = require('../../services/storage');
+locator.registerInstance('window', { localStorage });
+locator.registerInstance('config', {});
+storage.register(locator);
 
-var ServiceLocator = require('catberry-locator');
-
-var localStorage = createLocalStorage();
-
-var catLocator = new ServiceLocator();
-
-catLocator.registerInstance('window', { localStorage: localStorage });
-
-catLocator.registerInstance('config', {});
-storage.register(catLocator);
-
-lab.experiment('todoAction.loadStorageTodos method', () => {
-  let state,
-    output;
+lab.experiment('todo.loadStorageTodos method', () => {
+  let state, output;
 
   lab.beforeEach(done => {
     state = new Baobab({});
@@ -28,20 +22,20 @@ lab.experiment('todoAction.loadStorageTodos method', () => {
   });
 
   lab.test('Successful service answer', done => {
-    let todo = {id: 'test'};
-    localStorage.setItem('TODO_LIST', JSON.stringify(todo));
+    let todoItem = { id: 'test' };
+    localStorage.setItem('TODO_LIST', JSON.stringify(todoItem));
     output = {
       success: todos => {
-        assert.deepEqual(todos, {todos: todo});
+        assert.deepEqual(todos, { todos: todoItem });
         done();
       }
     };
 
-    todoAction.loadStorageTodos({}, state, output, { locator: catLocator });
+    todo.loadStorageTodos({}, state, output, { locator: locator });
   });
 
   lab.test('Unsuccessful service answer', done => {
-    localStorage.setItem('TODO_LIST', {id: 'test'});
+    localStorage.setItem('TODO_LIST', { id: 'test' });
     output = {
       success: () => {
 
@@ -51,11 +45,11 @@ lab.experiment('todoAction.loadStorageTodos method', () => {
         done();
       }
     };
-    todoAction.loadStorageTodos({}, state, output, { locator: catLocator });
+    todo.loadStorageTodos({}, state, output, { locator: locator });
   });
 });
 
-lab.experiment('todoAction.setTodos method', () => {
+lab.experiment('todo.setTodos method', () => {
   let state;
 
   lab.beforeEach(done => {
@@ -65,20 +59,20 @@ lab.experiment('todoAction.setTodos method', () => {
 
   lab.test('Set empty todos', done => {
     let todos = '';
-    todoAction.setTodos({todos}, state);
+    todo.setTodos({todos}, state);
     assert.deepEqual(state.get(['todos']), []);
     done();
   });
 
   lab.test('Set few todos', done => {
     let todos = ['todo1', 'todo2'];
-    todoAction.setTodos({todos}, state);
+    todo.setTodos({todos}, state);
     assert.deepEqual(state.get(['todos']), todos);
     done();
   });
 });
 
-lab.experiment('todoAction.validateNewTodo method', () => {
+lab.experiment('todo.validateNewTodo method', () => {
   let state,
     output,
     value;
@@ -97,7 +91,7 @@ lab.experiment('todoAction.validateNewTodo method', () => {
       }
     };
 
-    todoAction.validateNewTodo({value}, state, output);
+    todo.validateNewTodo({value}, state, output);
   });
 
   lab.test('Unsuccessful validating', done => {
@@ -108,11 +102,11 @@ lab.experiment('todoAction.validateNewTodo method', () => {
       }
     };
 
-    todoAction.validateNewTodo({value}, state, output);
+    todo.validateNewTodo({value}, state, output);
   });
 });
 
-lab.experiment('todoAction.addNewTodo method', () => {
+lab.experiment('todo.addNewTodo method', () => {
   let state;
 
   lab.beforeEach(done => {
@@ -125,7 +119,7 @@ lab.experiment('todoAction.addNewTodo method', () => {
     state.set(['form', 'input'], inputValue);
     state.set(['todos'], []);
 
-    todoAction.addNewTodo({}, state);
+    todo.addNewTodo({}, state);
     assert.equal(state.get(['todos']).length, 1);
     assert.equal(state.get(['todos', 0, 'status']), 'active');
     assert.strictEqual(state.get(['todos', 0, 'shown']), true);
@@ -138,15 +132,15 @@ lab.experiment('todoAction.addNewTodo method', () => {
     state.set(['form', 'input'], inputValue);
     state.set(['todos'], []);
 
-    todoAction.addNewTodo({}, state);
-    todoAction.addNewTodo({}, state);
-    todoAction.addNewTodo({}, state);
+    todo.addNewTodo({}, state);
+    todo.addNewTodo({}, state);
+    todo.addNewTodo({}, state);
     assert.equal(state.get(['todos']).length, 3);
     done();
   });
 });
 
-lab.experiment('todoAction.removeTodo method', () => {
+lab.experiment('todo.removeTodo method', () => {
   let state,
     id;
 
@@ -159,7 +153,7 @@ lab.experiment('todoAction.removeTodo method', () => {
     id = 1;
     state.set(['todos'], [ {id} ]);
 
-    todoAction.removeTodo({id}, state);
+    todo.removeTodo({id}, state);
     assert.equal(state.get(['todos']).length, 0);
     done();
   });
@@ -168,14 +162,14 @@ lab.experiment('todoAction.removeTodo method', () => {
     id = 1;
     state.set(['todos'], [ {id}, {id: 2}, {id: 3} ]);
 
-    todoAction.removeTodo({id}, state);
+    todo.removeTodo({id}, state);
     assert.equal(state.get(['todos']).length, 2);
     assert.strictEqual(!state.get(['todos', {id}]), true, 'Should be removed');
     done();
   });
 });
 
-lab.experiment('todoAction.syncTodoInStorage method', () => {
+lab.experiment('todo.syncTodoInStorage method', () => {
   let state,
     output;
 
@@ -193,11 +187,11 @@ lab.experiment('todoAction.syncTodoInStorage method', () => {
       }
     };
 
-    todoAction.syncTodoInStorage({}, state, output, { locator: catLocator });
+    todo.syncTodoInStorage({}, state, output, { locator: locator });
   });
 });
 
-lab.experiment('todoAction.setTodosIdsMap method', () => {
+lab.experiment('todo.setTodosIdsMap method', () => {
   let state;
 
   lab.beforeEach(done => {
@@ -206,14 +200,14 @@ lab.experiment('todoAction.setTodosIdsMap method', () => {
   });
 
   lab.test('No todos items', done => {
-    todoAction.setTodosIdsMap({}, state);
+    todo.setTodosIdsMap({}, state);
     state.set(['todos'], []);
     assert.equal(state.get(['todoIds']).length, 0);
     done();
   });
 
   lab.test('Two todos items', done => {
-    todoAction.setTodosIdsMap({}, state);
+    todo.setTodosIdsMap({}, state);
 
     state.set(['todos'], []);
     state.push(['todos'], {id: 11});
@@ -225,7 +219,7 @@ lab.experiment('todoAction.setTodosIdsMap method', () => {
   });
 });
 
-lab.experiment('todoAction.setSyncFlag method', () => {
+lab.experiment('todo.setSyncFlag method', () => {
   let state;
 
   lab.beforeEach(done => {
@@ -234,13 +228,13 @@ lab.experiment('todoAction.setSyncFlag method', () => {
   });
 
   lab.test('Sets sync flag', done => {
-    todoAction.setSyncFlag({}, state);
+    todo.setSyncFlag({}, state);
     assert.strictEqual(state.get(['isSyncing']), true);
     done();
   });
 });
 
-lab.experiment('todoAction.removeSyncFlag method', () => {
+lab.experiment('todo.removeSyncFlag method', () => {
   let state;
 
   lab.beforeEach(done => {
@@ -249,13 +243,13 @@ lab.experiment('todoAction.removeSyncFlag method', () => {
   });
 
   lab.test('Removes sync flag', done => {
-    todoAction.removeSyncFlag({}, state);
+    todo.removeSyncFlag({}, state);
     assert.strictEqual(state.get(['isSyncing']), false);
     done();
   });
 });
 
-lab.experiment('todoAction.clearForm method', () => {
+lab.experiment('todo.clearForm method', () => {
   let state;
 
   lab.beforeEach(done => {
@@ -265,13 +259,13 @@ lab.experiment('todoAction.clearForm method', () => {
 
   lab.test('Clears input', done => {
     state.set(['form', 'input'], 'test');
-    todoAction.clearForm({}, state);
+    todo.clearForm({}, state);
     assert.strictEqual(typeof state.get(['form', 'input']), 'undefined');
     done();
   });
 });
 
-lab.experiment('todoAction.setTodosStateFlag method', () => {
+lab.experiment('todo.setTodosStateFlag method', () => {
   let state;
 
   lab.beforeEach(done => {
@@ -280,7 +274,7 @@ lab.experiment('todoAction.setTodosStateFlag method', () => {
   });
 
   lab.test('There are no todo items', done => {
-    todoAction.setTodosStateFlag({}, state);
+    todo.setTodosStateFlag({}, state);
 
     state.set(['todos'], []);
     assert.strictEqual(state.get(['isTodosNotEmpty']), false);
@@ -288,7 +282,7 @@ lab.experiment('todoAction.setTodosStateFlag method', () => {
   });
 
   lab.test('There is one todo item', done => {
-    todoAction.setTodosStateFlag({}, state);
+    todo.setTodosStateFlag({}, state);
 
     state.set(['todos'], [{id: 1}]);
     assert.strictEqual(state.get(['isTodosNotEmpty']), true);
@@ -296,7 +290,7 @@ lab.experiment('todoAction.setTodosStateFlag method', () => {
   });
 
   lab.test('There are two todos', done => {
-    todoAction.setTodosStateFlag({}, state);
+    todo.setTodosStateFlag({}, state);
 
     state.set(['todos'], []);
     state.push(['todos'], {id: 1});
@@ -308,7 +302,7 @@ lab.experiment('todoAction.setTodosStateFlag method', () => {
   });
 });
 
-lab.experiment('todoAction.setCompletedAllStateFlag method', () => {
+lab.experiment('todo.setCompletedAllStateFlag method', () => {
   let state;
 
   lab.beforeEach(done => {
@@ -317,14 +311,14 @@ lab.experiment('todoAction.setCompletedAllStateFlag method', () => {
   });
 
   lab.test('There are no todo items', done => {
-    todoAction.setCompletedAllStateFlag({}, state);
+    todo.setCompletedAllStateFlag({}, state);
     state.set(['todos'], []);
     assert.strictEqual(state.get(['allCompleted']), false);
     done();
   });
 
   lab.test('Adding completed todo', done => {
-    todoAction.setCompletedAllStateFlag({}, state);
+    todo.setCompletedAllStateFlag({}, state);
 
     state.set(['todos'], []);
     state.push(['todos'], {id: 1, status: 'completed'});
@@ -336,7 +330,7 @@ lab.experiment('todoAction.setCompletedAllStateFlag method', () => {
   });
 
   lab.test('Adding active todo', done => {
-    todoAction.setCompletedAllStateFlag({}, state);
+    todo.setCompletedAllStateFlag({}, state);
 
     state.set(['todos'], []);
     state.push(['todos'], {id: 1, status: 'active'});
@@ -348,7 +342,7 @@ lab.experiment('todoAction.setCompletedAllStateFlag method', () => {
   });
 
   lab.test('Adding active and completed todo', done => {
-    todoAction.setCompletedAllStateFlag({}, state);
+    todo.setCompletedAllStateFlag({}, state);
 
     state.set(['todos'], []);
     state.push(['todos'], {id: 1, status: 'completed'});
@@ -360,7 +354,7 @@ lab.experiment('todoAction.setCompletedAllStateFlag method', () => {
   });
 });
 
-lab.experiment('todoAction.saveEditingTodo method', () => {
+lab.experiment('todo.saveEditingTodo method', () => {
   let state;
 
   lab.beforeEach(done => {
@@ -373,13 +367,13 @@ lab.experiment('todoAction.saveEditingTodo method', () => {
     let id = 1;
     state.set(['todos'], [{id: 1, name: 'test'}]);
 
-    todoAction.saveEditingTodo({value, id}, state);
+    todo.saveEditingTodo({value, id}, state);
     assert.strictEqual(state.get(['todos', 0, 'name']), value);
     done();
   });
 });
 
-lab.experiment('todoAction.cancelEditingTodo method', () => {
+lab.experiment('todo.cancelEditingTodo method', () => {
   let state;
 
   lab.beforeEach(done => {
@@ -392,14 +386,14 @@ lab.experiment('todoAction.cancelEditingTodo method', () => {
     state.push(['todos'], {editing: true});
     state.push(['todos'], {editing: false});
 
-    todoAction.cancelEditingTodo({}, state);
+    todo.cancelEditingTodo({}, state);
     assert.strictEqual(state.get(['todos', 0, 'editing']), false);
     assert.strictEqual(state.get(['todos', 1, 'editing']), false);
     done();
   });
 });
 
-lab.experiment('todoAction.toggleCompletedTodo method', () => {
+lab.experiment('todo.toggleCompletedTodo method', () => {
   let state;
 
   lab.beforeEach(done => {
@@ -411,7 +405,7 @@ lab.experiment('todoAction.toggleCompletedTodo method', () => {
     let id = 1;
     state.set(['todos'], [{id: 1, status: 'active', checked: false}]);
 
-    todoAction.toggleCompletedTodo({id}, state);
+    todo.toggleCompletedTodo({id}, state);
     assert.deepEqual(state.get(['todos']), [{id: 1, status: 'completed', checked: true}]);
     done();
   });
@@ -420,13 +414,13 @@ lab.experiment('todoAction.toggleCompletedTodo method', () => {
     let id = 1;
     state.set(['todos'], [{id: 1, status: 'completed', checked: true}]);
 
-    todoAction.toggleCompletedTodo({id}, state);
+    todo.toggleCompletedTodo({id}, state);
     assert.deepEqual(state.get(['todos']), [{id: 1, status: 'active', checked: false}]);
     done();
   });
 });
 
-lab.experiment('todoAction.toggleAllCompletedTodo method', () => {
+lab.experiment('todo.toggleAllCompletedTodo method', () => {
   let state;
 
   lab.beforeEach(done => {
@@ -441,7 +435,7 @@ lab.experiment('todoAction.toggleAllCompletedTodo method', () => {
       {status: 'active', checked: false}
     ]);
 
-    todoAction.toggleAllCompletedTodo({isCompleted}, state);
+    todo.toggleAllCompletedTodo({isCompleted}, state);
     assert.deepEqual(state.get(['todos']), [
       {status: 'completed', checked: true},
       {status: 'completed', checked: true}
@@ -456,7 +450,7 @@ lab.experiment('todoAction.toggleAllCompletedTodo method', () => {
       {status: 'completed', checked: true}
     ]);
 
-    todoAction.toggleAllCompletedTodo({isCompleted}, state);
+    todo.toggleAllCompletedTodo({isCompleted}, state);
     assert.deepEqual(state.get(['todos']), [
       {status: 'active', checked: false},
       {status: 'active', checked: false}
@@ -465,7 +459,7 @@ lab.experiment('todoAction.toggleAllCompletedTodo method', () => {
   });
 });
 
-lab.experiment('todoAction.removeCompletedTodo method', () => {
+lab.experiment('todo.removeCompletedTodo method', () => {
   let state;
 
   lab.beforeEach(done => {
@@ -479,7 +473,7 @@ lab.experiment('todoAction.removeCompletedTodo method', () => {
       {status: 'completed'}
     ]);
 
-    todoAction.removeCompletedTodo({}, state);
+    todo.removeCompletedTodo({}, state);
     assert.equal(state.get(['todos'].length, 0));
     done();
   });
@@ -490,13 +484,13 @@ lab.experiment('todoAction.removeCompletedTodo method', () => {
       {status: 'active'}
     ]);
 
-    todoAction.removeCompletedTodo({}, state);
+    todo.removeCompletedTodo({}, state);
     assert.equal(state.get(['todos'].length, 1));
     done();
   });
 });
 
-lab.experiment('todoAction.setComputedTodos method', () => {
+lab.experiment('todo.setComputedTodos method', () => {
   let state;
 
   lab.beforeEach(done => {
@@ -505,7 +499,7 @@ lab.experiment('todoAction.setComputedTodos method', () => {
   });
 
   lab.test('Filter "all" add active todo', done => {
-    todoAction.setComputedTodos({}, state);
+    todo.setComputedTodos({}, state);
     state.set(['filters', 'isActive'], 'all');
     state.push(['todos'], {status: 'active'});
     assert.deepEqual(state.get(['todosComputed']), [{status: 'active', shown: true}]);
@@ -513,7 +507,7 @@ lab.experiment('todoAction.setComputedTodos method', () => {
   });
 
   lab.test('Filter "all" add completed todo', done => {
-    todoAction.setComputedTodos({}, state);
+    todo.setComputedTodos({}, state);
     state.set(['filters', 'isActive'], 'all');
     state.push(['todos'], {status: 'completed'});
     assert.deepEqual(state.get(['todosComputed']), [{status: 'completed', shown: true}]);
@@ -521,7 +515,7 @@ lab.experiment('todoAction.setComputedTodos method', () => {
   });
 
   lab.test('Filter "active" add active todo', done => {
-    todoAction.setComputedTodos({}, state);
+    todo.setComputedTodos({}, state);
     state.set(['filters', 'isActive'], 'active');
     state.push(['todos'], {status: 'active'});
     assert.deepEqual(state.get(['todosComputed']), [{status: 'active', shown: true}]);
@@ -529,7 +523,7 @@ lab.experiment('todoAction.setComputedTodos method', () => {
   });
 
   lab.test('Filter "active" add completed todo', done => {
-    todoAction.setComputedTodos({}, state);
+    todo.setComputedTodos({}, state);
     state.set(['filters', 'isActive'], 'active');
     state.push(['todos'], {status: 'completed'});
     assert.deepEqual(state.get(['todosComputed']), [{status: 'completed', shown: false}]);
@@ -537,7 +531,7 @@ lab.experiment('todoAction.setComputedTodos method', () => {
   });
 
   lab.test('Filter "completed" add active todo', done => {
-    todoAction.setComputedTodos({}, state);
+    todo.setComputedTodos({}, state);
     state.set(['filters', 'isActive'], 'completed');
     state.push(['todos'], {status: 'active'});
     assert.deepEqual(state.get(['todosComputed']), [{status: 'active', shown: false}]);
@@ -545,7 +539,7 @@ lab.experiment('todoAction.setComputedTodos method', () => {
   });
 
   lab.test('Filter "completed" add completed todo', done => {
-    todoAction.setComputedTodos({}, state);
+    todo.setComputedTodos({}, state);
     state.set(['filters', 'isActive'], 'completed');
     state.push(['todos'], {status: 'completed'});
     assert.deepEqual(state.get(['todosComputed']), [{status: 'completed', shown: true}]);

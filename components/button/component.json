@@ -1,5 +1,0 @@
-{
-  "name": "button",
-  "logic": "./button.js",
-  "template": "./button.html"
-}

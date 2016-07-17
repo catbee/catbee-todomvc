@@ -1,9 +1,8 @@
-var Lab = require('lab');
-var lab = exports.lab = Lab.script();
-var assert = require('assert');
-var counterAction = require('../../actions/counterAction');
-
-var Baobab = require('baobab');
+const Lab = require('lab');
+const lab = exports.lab = Lab.script();
+const assert = require('assert');
+const counter = require('../../actions/counter');
+const Baobab = require('baobab');
 
 lab.experiment('setBaseCount method', () => {
   let state;
@@ -12,7 +11,7 @@ lab.experiment('setBaseCount method', () => {
     state = new Baobab({
       todos: []
     });
-    counterAction.setBaseCount({}, state);
+    counter.setBaseCount({}, state);
     done();
   });
 

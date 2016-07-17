@@ -1,5 +1,0 @@
-{
-  "name": "counter",
-  "logic": "./counter.js",
-  "template": "./counter.html"
-}

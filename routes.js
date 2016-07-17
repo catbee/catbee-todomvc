@@ -1,6 +1,17 @@
-module.exports = [
+const routes = [
   {
     expression: '/',
-    signal: 'route'
+    args: {
+      signal: require('./signals/page').route
+    }
   }
 ];
+
+module.exports = {
+  /**
+   * @param {Catbee} cat
+   */
+  register (cat) {
+    routes.forEach((route) => cat.registerRoute(route));
+  }
+};

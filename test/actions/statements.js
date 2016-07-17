@@ -1,9 +1,9 @@
-var Lab = require('lab');
-var lab = exports.lab = Lab.script();
-var assert = require('assert');
-var statementsAction = require('../../actions/statementsAction');
+const Lab = require('lab');
+const lab = exports.lab = Lab.script();
+const assert = require('assert');
+const statementsAction = require('../../actions/statements');
 
-var Baobab = require('baobab');
+const Baobab = require('baobab');
 
 lab.experiment('statementsAction.setTitle method', () => {
   let state;
