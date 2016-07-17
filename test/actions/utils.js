@@ -13,7 +13,7 @@ lab.experiment('utils.setInputValue method', () => {
   });
 
   lab.test('Set one test path and value', done => {
-    let path = 'form.input';
+    let path = ['form', 'input'];
     let value = 'Test value';
     utils.setInputValue({path, value}, state);
     assert.equal(state.get(['form', 'input']), value);
@@ -21,7 +21,7 @@ lab.experiment('utils.setInputValue method', () => {
   });
 
   lab.test('Set second test path and value', done => {
-    let path = 'form.field.one';
+    let path = ['form', 'field', 'one'];
     let value = '';
     utils.setInputValue({path, value}, state);
     assert.equal(state.get(['form', 'field', 'one']), value);
