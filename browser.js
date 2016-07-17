@@ -1,18 +1,13 @@
-var catbee = require('catbee');
-var handlebars = require('catbee-handlebars');
-var storage = require('./services/storage');
-var helpers = require('./services/helpers');
-var history = require('./services/history');
+const catbee = require('catbee');
+const components = require('catbee-web-components');
+const logger = require('catbee-logger');
+const routes = require('./routes');
+const storage = require('./services/storage');
+const cat = catbee.create(global.CONFIG);
 
-var cat = catbee.create({
-  logger: {
-    levels: 'error'
-  }
-});
-
-handlebars.register(cat.locator);
-helpers.register(cat.locator);
+components.register(cat.locator, require('./components/Document'));
+routes.register(cat);
+logger.register(cat.locator);
 storage.register(cat.locator);
-history.register(cat.locator);
 
 cat.startWhenReady();

@@ -1,15 +1,8 @@
-var { html } = require('common-tags');
+const { addNewTodo, newTodoInput } = require('../../signals/form');
 
 class Header {
-  template (ctx) {
-    return html`
-      <header class="header">
-        <h1>${ctx.header}</h1>
-        <form>
-          <cat-input />
-        </form>
-      </header>
-    `
+  constructor () {
+    this.template = require('./template.hbs');
   }
 
   render () {
@@ -31,7 +24,7 @@ class Header {
   addNewTodo (e) {
     e.preventDefault();
     let value = e.currentTarget.elements[0].value;
-    this.$context.signal('addNewTodo', { value });
+    this.$context.signal(addNewTodo, { value });
   }
 }
 
@@ -47,7 +40,7 @@ module.exports = {
       props: {
         placeholder: 'What needs to be done?',
         mode: 'new-todo',
-        signal: require('../../signals/todoSignals').newTodoInput,
+        signal: newTodoInput,
         path: ['form', 'input'],
         autofocus: true
       }

@@ -1,5 +1,0 @@
-{
-  "name": "footer",
-  "logic": "./footer.js",
-  "template": "./footer.html"
-}

@@ -1,9 +1,0 @@
-<ul class="todo-list">
-  {{#each todos}}
-    {{#if this.shown}}
-      <li class="{{this.status}} {{#if this.editing}}editing{{/if}}">
-        <cat-todo-item id="todo-item-{{this.id}}" cat-id="{{this.id}}" watcher="todoItemWatcher"></cat-todo-item>
-      </li>
-    {{/if}}
-  {{/each}}
-</ul>

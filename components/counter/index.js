@@ -1,4 +1,7 @@
-class Head {
+/**
+ * Counter component. Counts active todos
+ */
+class Counter {
   constructor () {
     this.template = require('./template.hbs');
   }
@@ -9,5 +12,5 @@ class Head {
 }
 
 module.exports = {
-  constructor: Head
+  constructor: Counter
 };

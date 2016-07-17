@@ -1,11 +1,10 @@
-var Lab = require('lab');
-var lab = exports.lab = Lab.script();
-var assert = require('assert');
-var utilsAction = require('../../actions/utilsAction');
+const Lab = require('lab');
+const lab = exports.lab = Lab.script();
+const assert = require('assert');
+const utils = require('../../actions/utils');
+const Baobab = require('baobab');
 
-var Baobab = require('baobab');
-
-lab.experiment('utilsAction.setInputValue method', () => {
+lab.experiment('utils.setInputValue method', () => {
   let state;
 
   lab.beforeEach(done => {
@@ -16,7 +15,7 @@ lab.experiment('utilsAction.setInputValue method', () => {
   lab.test('Set one test path and value', done => {
     let path = 'form.input';
     let value = 'Test value';
-    utilsAction.setInputValue({path, value}, state);
+    utils.setInputValue({path, value}, state);
     assert.equal(state.get(['form', 'input']), value);
     done();
   });
@@ -24,7 +23,7 @@ lab.experiment('utilsAction.setInputValue method', () => {
   lab.test('Set second test path and value', done => {
     let path = 'form.field.one';
     let value = '';
-    utilsAction.setInputValue({path, value}, state);
+    utils.setInputValue({path, value}, state);
     assert.equal(state.get(['form', 'field', 'one']), value);
     done();
   });

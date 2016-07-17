@@ -1,25 +1,12 @@
-var { appReady } = require('../../signals/pageSignals');
-var { cancelEditingTodo } = require('../../signals/todoSignals');
-var { html } = require('common-tags');
+const { appReady } = require('../../signals/page');
+const { cancelEditingTodo } = require('../../signals/todo');
 
 /**
  * Document component
  */
 class Document {
-  template () {
-    return html`
-      <!DOCTYPE html>
-      <html>
-        <head></head>
-        <body>
-          <section class="todoapp">
-            <cat-header>
-            </cat-header>
-          </section>
-          <script src="/bundle.js"></script>
-        </body>
-      </html>
-    `
+  constructor () {
+    this.template = require('./template.hbs');
   }
 
   bind () {
@@ -57,6 +44,18 @@ module.exports = {
       watcher: {
         header: ['statements', 'header']
       }
+    },
+    {
+      name: 'main',
+      component: require('../main'),
+      watcher: {
+        isTodosNotEmpty: ['isTodosNotEmpty'],
+        checked: ['allCompleted']
+      }
+    },
+    {
+      name: 'footer',
+      component: require('../footer')
     }
   ]
 };

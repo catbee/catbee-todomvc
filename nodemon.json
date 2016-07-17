@@ -1,0 +1,7 @@
+{
+  "ignore": [
+    "./public/build.js",
+    ".git"
+  ],
+  "ext": "js hbs"
+}

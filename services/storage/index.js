@@ -1,8 +1,8 @@
 var DELAY = 250;
 
 class Storage {
-  constructor ($window) {
-    this._window = $window;
+  constructor (locator) {
+    this._window = locator.resolve('window');
 
     if (this._window) {
       this.localStorage = this._window.localStorage;
@@ -44,7 +44,7 @@ class Storage {
     });
   }
 
-  clearByKey(key, todoId) {
+  clearByKey (key, todoId) {
     return new Promise((resolve) => {
       if (!this.localStorage) {
         resolve();
@@ -63,7 +63,6 @@ class Storage {
 
 module.exports = {
   register (locator) {
-    var config = locator.resolve('config');
     locator.register('storage', Storage, true);
   }
 };

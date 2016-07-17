@@ -1,8 +1,9 @@
 <img src="https://raw.githubusercontent.com/markuplab/catbee-todomvc/master/logo.png" width="175" height="175" />
 
-### Catbee Todo
+### Catbee TodoMVC
 
-Catbee isomorphic todo application. 
+Example isomorphic application based on popular TodoMVC implementation.
+This app use web-components as view layer.
 
 ### Quick start
 ```
@@ -11,4 +12,3 @@ npm start
 http://localhost:3000/
 ```
 
-#### Open console for track state mutations.

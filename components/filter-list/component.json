@@ -1,5 +1,0 @@
-{
-  "name": "filter-list",
-  "logic": "./filter-list.js",
-  "template": "./filter-list.html"
-}
