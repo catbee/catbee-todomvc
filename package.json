@@ -6,7 +6,7 @@
     "baobab": "^2.3.3",
     "catbee": "^3.0.0",
     "catbee-logger": "^2.0.1",
-    "catbee-web-components": "^1.0.0-rc.2",
+    "catbee-web-components": "^1.0.0-rc.4",
     "compression": "^1.6.0",
     "express": "^4.13.3",
     "handlebars": "^4.0.5",
