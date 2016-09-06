@@ -2,61 +2,57 @@ const Lab = require('lab');
 const lab = exports.lab = Lab.script();
 const assert = require('assert');
 const Baobab = require('baobab');
-const filter = require('../../actions/filters');
+const { methods } = require('../../src/filters/actions');
+const paths = require('../../src/filters/paths');
+const createSelf = require('../../src/self');
+
 
 const FILTERS_LIST = [
   { name: 'all' },
   { name: 'active' },
-  { name: 'completed'}
+  { name: 'completed' }
 ];
 
-lab.experiment('filters.setFiltersList method', () => {
-  let state = new Baobab({});
+lab.experiment('filters', () => {
+  let state, self;
 
-  lab.test('Setting filters', done => {
-    filter.setFiltersList({}, state);
-
-    assert.deepEqual(state.get(['filters', 'list']), FILTERS_LIST);
-    done();
-  });
-});
-
-lab.experiment('filters.setActiveFilter method', () => {
-  let state;
-
-  lab.beforeEach(done => {
+  lab.beforeEach((done) => {
     state = new Baobab({});
+    self = createSelf(paths, state);
     done();
   });
 
-  lab.test('Setting filters', done => {
-    filter.setFiltersList({}, state);
+  lab.experiment('initialize method', () => {
+    lab.test('Setting filters', (done) => {
+      methods.initialize({ self });
+      assert.deepEqual(self.list(), FILTERS_LIST);
+      done();
+    });
 
-    assert.deepEqual(state.get(['filters', 'list']), FILTERS_LIST);
-    done();
+    lab.test('active filter', (done) => {
+      methods.initialize({ self });
+      assert.deepEqual(self.isActive(), 'all');
+      done();
+    });
   });
 
-  lab.test('Set active filter "all"', done => {
-    state.set(['filters', 'list'], FILTERS_LIST);
-    filter.setActiveFilter({index: 0}, state);
+  lab.experiment('enabling different modes', () => {
+    lab.test('active', (done) => {
+      methods.enableActiveFilter({ self });
+      assert.equal(self.isActive(), 'active');
+      done();
+    });
 
-    assert.equal(state.get(['filters', 'isActive']), FILTERS_LIST[0].name);
-    done();
-  });
+    lab.test('all', (done) => {
+      methods.enableAllFilter({ self });
+      assert.equal(self.isActive(), 'all');
+      done();
+    });
 
-  lab.test('Set active filter "active"', done => {
-    state.set(['filters', 'list'], FILTERS_LIST);
-    filter.setActiveFilter({index: 1}, state);
-
-    assert.equal(state.get(['filters', 'isActive']), FILTERS_LIST[1].name);
-    done();
-  });
-
-  lab.test('Set active filter "completed"', done => {
-    state.set(['filters', 'list'], FILTERS_LIST);
-    filter.setActiveFilter({index: 2}, state);
-
-    assert.equal(state.get(['filters', 'isActive']), FILTERS_LIST[2].name);
-    done();
+    lab.test('completed', (done) => {
+      methods.enableCompletedFilter({ self });
+      assert.equal(self.isActive(), 'completed');
+      done();
+    });
   });
 });
