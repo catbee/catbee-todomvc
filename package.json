@@ -17,13 +17,13 @@
     "concurrently": "^2.2.0",
     "eslint": "^1.1.0",
     "handlebars-template-loader": "^0.6.0",
-    "lab": "^7.2.0",
+    "lab": "^10.0.0",
     "nodemon": "^1.9.2",
     "webpack": "^1.13.1"
   },
   "scripts": {
     "start": "concurrently 'nodemon ./server.js' 'webpack --watch'",
-    "lint": "eslint ./signals ./watchers ./components ./actions ./test",
+    "lint": "eslint ./src ./test",
     "test": "lab ./test/actions/*.js"
   },
   "author": "k.kaysarov <defcuts@mail.ru>",

@@ -2,7 +2,7 @@ const routes = [
   {
     expression: '/',
     args: {
-      signal: require('./signals/page').route
+      signal: require('./src/signals').route
     }
   }
 ];
